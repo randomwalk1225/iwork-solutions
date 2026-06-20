@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iWork 수학 — 경시 해설·채점 리포트</title>
+<meta name="description" content="아이워크수학 학생들의 수학 경시대회(HMMT 등) 풀이 해설과 채점 리포트 모음. 영어·한글 단계별 해설 + 심화.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1a1a; --muted:#6b665f; --paper:#faf9f7; --header:#2b3a42; --accent:#2b6cb0;
+  --ok:#2f7a55; --okbg:#eef3ef; --part:#b06a2b; --partbg:#f5eee2; --wrong:#a4472f; --line:#e7e1d7;
+}
+*{box-sizing:border-box}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri'),local('MaruBuri-Regular');font-weight:400}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri SemiBold'),local('MaruBuri-SemiBold');font-weight:600}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri Bold'),local('MaruBuri-Bold');font-weight:700}
+body{font-family:'MaruBuri','Noto Serif KR','Apple SD Gothic Neo',serif; color:var(--ink);
+  background:var(--paper); margin:0; line-height:1.8; font-size:18px}
+header.top{background:var(--header); color:#fff; padding:34px 22px 28px}
+header.top .inner{max-width:1100px; margin:0 auto}
+header.top h1{margin:0 0 6px; font-size:34px; font-weight:700; letter-spacing:-.3px}
+header.top .sub{font-size:17px; opacity:.9}
+.wrap{max-width:1100px; margin:0 auto; padding:8px 22px 80px}
+.intro{font-size:17px; color:var(--muted); margin:22px 0 8px}
+.grouph{font-size:22px; font-weight:700; color:var(--header); margin:34px 0 6px;
+  padding-bottom:8px; border-bottom:2px solid var(--line)}
+.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:18px; margin-top:18px}
+.card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 24px;
+  display:flex; flex-direction:column; gap:6px}
+.card .exam{font-size:20px; font-weight:700; color:var(--header)}
+.card .meta{font-size:15px; color:var(--muted)}
+.badge{align-self:flex-start; margin:6px 0 2px; padding:5px 16px; border-radius:24px;
+  font-weight:700; font-size:15px; background:var(--okbg); color:var(--ok)}
+.links{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+.btn{text-decoration:none; font-weight:600; font-size:16px; padding:9px 18px; border-radius:9px;
+  background:var(--accent); color:#fff; transition:.15s}
+.btn:hover{background:var(--header)}
+.btn.ghost{background:#eef3fb; color:var(--accent)}
+footer{max-width:1100px; margin:30px auto 0; padding:20px 22px; color:var(--muted); font-size:15px;
+  border-top:1px solid var(--line); text-align:center}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<header class="top"><div class="inner">
+  <h1>iWork 수학 · 경시 해설</h1>
+  <div class="sub">아이워크수학 · iWork Math — 학생 풀이 채점 리포트 &amp; 단계별 해설</div>
+</div></header>
+<div class="wrap">
+  <p class="intro">학생들이 직접 푼 수학 경시대회 문제를 공식 정답 기준으로 채점하고, 영어·한글 단계별 풀이와 심화 해설을 함께 정리한 모음입니다.</p>
+
+  <div class="grouph">HMMT November — General Round</div>
+  <div class="cards">
+
+    <div class="card">
+      <div class="exam">HMMT November 2024 · General</div>
+      <div class="meta">학생: 유윤제 · 10문항</div>
+      <span class="badge">결과 8 / 10</span>
+      <div class="links">
+        <a class="btn" href="reports/hmmt-2024-general-yunje.html">해설 보기</a>
+        <a class="btn ghost" href="reports/hmmt-2024-general-yunje.pdf">PDF</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="exam">HMMT November 2025 · General</div>
+      <div class="meta">학생: 유윤제 · 10문항</div>
+      <span class="badge">결과 8 / 10</span>
+      <div class="links">
+        <a class="btn" href="reports/hmmt-2025-general-yunje.html">해설 보기</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<footer>
+  아이워크수학 · iWork Math · 원장 이상열 · 정답은 <a href="https://hmmt-archive.s3.amazonaws.com/" target="_blank" rel="noopener">HMMT 공식 아카이브</a> 기준 검증 · 무단복제 금지
+</footer>
+</body>
+</html>

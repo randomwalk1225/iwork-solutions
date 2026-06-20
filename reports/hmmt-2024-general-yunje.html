@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HMMT November 2024 — General Round 채점 리포트</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},chtml:{scale:1.05}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<style>
+:root{
+  --ink:#1a1a1a; --muted:#6b665f; --paper:#faf9f7; --header:#2b3a42; --accent:#2b6cb0;
+  --ok:#2f7a55; --okbg:#eef3ef; --wrong:#a4472f; --wrongbg:#f6efea;
+  --part:#b06a2b; --partbg:#f5eee2; --line:#e7e1d7;
+  --fs-base:24px; --fs-step:23px; --fs-meta:16px; --fs-h:38px;
+}
+*{box-sizing:border-box}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri'),local('MaruBuri-Regular');font-weight:400}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri SemiBold'),local('MaruBuri-SemiBold');font-weight:600}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri Bold'),local('MaruBuri-Bold');font-weight:700}
+html{scroll-behavior:smooth}
+body{font-family:'MaruBuri','Noto Serif KR','Apple SD Gothic Neo',serif;
+  font-size:var(--fs-base); line-height:1.85; color:var(--ink); margin:0; background:var(--paper)}
+.wrap{max-width:1240px; margin:0 auto; padding:0 22px 80px}
+header.top{background:var(--header); color:#fff; padding:26px 22px 22px}
+header.top .inner{max-width:1240px; margin:0 auto}
+header.top h1{margin:0 0 4px; font-size:var(--fs-h); font-weight:700; letter-spacing:-.3px}
+header.top .sub{font-size:18px; opacity:.92}
+header.top .ex{font-size:16px; opacity:.80; margin-top:7px}
+nav.jump{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--line);
+  padding:11px 22px}
+nav.jump .inner{max-width:1240px; margin:0 auto; display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+nav.jump .brand{font-weight:700; color:var(--header); font-size:17px; margin-right:auto}
+.btn{display:inline-block; text-decoration:none; font-weight:600; font-size:17px;
+  padding:9px 18px; border-radius:8px; background:var(--accent); color:#fff; transition:.15s}
+.btn:hover{background:var(--header); transform:translateY(-1px)}
+.btn.ghost{background:#eef3fb; color:var(--accent)}
+.note{font-size:var(--fs-meta); color:var(--muted); margin:16px 0 8px}
+.note a{color:var(--accent)}
+.score{display:flex; gap:14px; flex-wrap:wrap; margin:18px 0 6px}
+.score .box{flex:1 1 150px; background:#fff; border:1px solid var(--line); border-radius:12px;
+  padding:16px; text-align:center}
+.score .box .n{font-size:34px; font-weight:700; line-height:1.1}
+.score .box .l{font-size:var(--fs-meta); color:var(--muted); margin-top:4px}
+.score .main .n{color:var(--accent)} .score .ok .n{color:var(--ok)}
+.score .wrong .n{color:var(--wrong)} .score .part .n{color:var(--part)}
+.verify{background:var(--partbg); border:1px solid #ead9c2; border-radius:8px; padding:14px 18px; margin:18px 0 8px}
+.verify h3{margin:0 0 8px; color:var(--part); font-size:20px}
+.verify li{margin:8px 0; font-size:17px}
+.sec{display:flex; align-items:center; gap:14px; margin:38px 0 16px}
+.sec h2{background:var(--header); color:#fff; padding:10px 20px; border-radius:8px; margin:0; font-size:24px}
+.sec a.top{margin-left:auto; font-size:var(--fs-meta); color:var(--accent); text-decoration:none}
+.card{background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px 24px; margin:18px 0}
+.card.wrong{background:var(--wrongbg)} .card.partial{background:var(--partbg)}
+.chead{display:flex; justify-content:space-between; align-items:flex-start; gap:18px; flex-wrap:wrap; margin-bottom:10px}
+.cleft{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.qn{font-weight:700; color:var(--header); font-size:27px}
+.area{font-size:var(--fs-meta); color:var(--muted)}
+.chip{padding:4px 16px; border-radius:24px; font-weight:600; font-size:var(--fs-meta)}
+.chip.ok{background:var(--okbg); color:var(--ok)} .chip.wrong{background:var(--wrongbg); color:var(--wrong)}
+.chip.partial{background:var(--partbg); color:var(--part)}
+.ans{display:flex; gap:14px; flex-shrink:0; flex-wrap:wrap}
+.abox{display:flex; flex-direction:column; align-items:center; padding:8px 20px; border-radius:12px; border:1px solid var(--line); min-width:110px}
+.abox .k{font-size:var(--fs-meta); color:var(--muted); font-weight:600}
+.abox .val{font-size:23px; font-weight:700; margin-top:2px}
+.abox.off{background:#edf1f5; border-color:#d6dde4} .abox.off .val{color:var(--header)}
+.abox.stu.ok{background:var(--okbg); border-color:#d2e2d8} .abox.stu.ok .val{color:var(--ok)}
+.abox.stu.wrong{background:var(--wrongbg); border-color:#e6cabf} .abox.stu.wrong .val{color:var(--wrong)}
+.abox.stu.partial{background:var(--partbg); border-color:#e7d6bd} .abox.stu.partial .val{color:var(--part)}
+.blabel{font-size:var(--fs-meta); font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--accent); margin:18px 0 6px; padding-bottom:5px; border-bottom:2px solid #dfe6ec}
+.blabel.sol{color:var(--ok); border-bottom-color:#d8e6dd}
+.prob{font-size:var(--fs-base); margin:4px 0 8px; line-height:1.8; color:#2c2925}
+ol.steps{margin:8px 0 2px; padding-left:0; list-style:none}
+ol.steps li{padding:7px 0; font-size:var(--fs-step); line-height:1.9; border-top:1px solid var(--line)}
+ol.steps li:first-child{border-top:none}
+.sollink{font-size:var(--fs-meta); margin-top:8px}
+.sollink a{color:var(--accent)}
+.dd{background:#fff; border:1px solid var(--line); border-radius:12px; margin:24px 0; overflow:hidden}
+.dd h3{background:var(--header); color:#fff; margin:0; padding:14px 20px; font-size:22px}
+.dd .body{padding:18px 24px}
+.dd .concept li{font-size:var(--fs-step); margin:11px 0; padding-left:6px; line-height:1.8}
+.pq{background:#f4f1ea; border:1px solid #e3dccf; border-radius:10px; padding:14px 18px; margin:16px 0 0; font-size:var(--fs-step)}
+.pq .pl{font-weight:700; color:var(--accent); margin-right:6px}
+details.pt{border:1px solid #e3dccf; border-top:none; border-radius:0 0 10px 10px; margin:0 0 6px}
+details.pt summary{cursor:pointer; padding:10px 16px; font-weight:600; color:var(--ok); font-size:17px; list-style:none}
+details.pt summary::-webkit-details-marker{display:none}
+details.pt summary::before{content:"▶ "; font-size:11px} details.pt[open] summary::before{content:"▼ "}
+details.pt ol.steps{padding:2px 16px 12px}
+footer{max-width:1240px; margin:30px auto 0; padding:18px 22px; color:var(--muted); font-size:var(--fs-meta);
+  border-top:1px solid var(--line); text-align:center}
+</style>
+</head>
+<body>
+<header class="top"><div class="inner">
+  <h1>HMMT November 2024 — General Round 채점 리포트</h1>
+  <div class="sub">HMMT November 2024 · General Round · 10문항</div>
+  <div class="ex">학생: 유윤제 · 채점일시 2026-06-20 21:01 · 결과 8 / 10 (부분 1 · 오답 1)</div>
+</div></header>
+<nav class="jump" id="topnav"><div class="inner">
+  <span class="brand">아이워크수학 · iWork Math</span>
+  <span style="font-size:16px;color:#6b665f">Bookmark</span>
+  <a class="btn" href="#eng">▶ English Solutions</a>
+  <a class="btn ghost" href="#kor">▶ 한글 해설</a>
+</div></nav>
+<div class="wrap">
+  <div class="note">정답은 HMMT 공식 해설 PDF 기준 검증. 학생 답안은 손글씨 스캔을 확대 판독함. 문제별 해설 링크는 공식 아카이브 solutions.pdf 로 연결됩니다.
+    · <a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/problems.pdf" target="_blank">problems.pdf</a>
+    · <a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">solutions.pdf</a></div>
+  <div class="score">
+    <div class="box main"><div class="n">8 / 10</div><div class="l">정답 / Correct</div></div>
+    <div class="box ok"><div class="n">8</div><div class="l">맞음 / Right</div></div>
+    <div class="box part"><div class="n">1</div><div class="l">부분 / Partial</div></div>
+    <div class="box wrong"><div class="n">1</div><div class="l">틀림 / Wrong</div></div>
+  </div>
+  <div class="verify"><h3>총평 / Notes</h3>
+    <ul>
+      <li><b>총평</b> — 1번부터 8번까지 8문제를 모두 정확히 맞혔다. 특히 7번(원·닮음 기하)은 공식 정답과 동일한 형태 \(\tfrac{40\sqrt3}{39}\)까지 깔끔하게 정리함 — 난이도 대비 매우 우수.<br><span style='color:#7a6a55'>Yunje solved Q1–Q8 all correctly, even simplifying Q7 to the exact official form \(\tfrac{40\sqrt3}{39}\). A strong performance.</span></li>
+      <li><b>Q9</b> — 정답은 두 값 \(\{\tfrac12,\ \tfrac{\sqrt7}{7}\}\). 유윤제는 \(\tfrac12\)은 맞혔고 두 번째 값을 \(\tfrac{\sqrt7}{17}\)로 적음 — 분모가 \(7\)이어야 하는데 \(17\)로 적은 마지막 단계 실수.<br><span style='color:#7a6a55'>the answer is \(\{\tfrac12,\ \tfrac{\sqrt7}{7}\}\). Yunje got \(\tfrac12\) right but wrote the second value as \(\tfrac{\sqrt7}{17}\) — the denominator should be \(7\), not \(17\).</span></li>
+      <li><b>Q10</b> — \(45\)로 적음. 정답은 \(203\). 공차 \(\{1,16\},\{4,16\},\{1,4\}\) 세 경우로 나눠 세고 포함–배제로 보정하는 문제 — 아래 심화 해설 참고.<br><span style='color:#7a6a55'>wrote \(45\); the answer is \(203\). Solve by casework on the pair of differences used, then inclusion–exclusion (see the deep dive below).</span></li>
+    </ul></div>
+  <div class="sec"><h2 id="eng">English Solutions</h2><a class="top" href="#topnav">▲ Top / 맨 위로</a></div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q1</span> <span class="chip ok">✓ Correct</span> <span class="area">Logic · products of integers</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(42\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(42\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Six consecutive positive integers are split among three people, two each. Ethan's two multiply to \(20\), Jacob's to \(24\). Compute the product of Karthik's two numbers.</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>\(20=4\cdot5\): the only pair of integers (within 6 consecutive) with product \(20\).</li>
+      <li>\(24=4\cdot6\) or \(3\cdot8\); since \(4\) is taken, Jacob holds \(3,8\).</li>
+      <li>So the six integers are \(3,4,5,6,7,8\); Karthik gets the leftovers \(6,7\).</li>
+      <li>\(\therefore 6\cdot7=42.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P1)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q2</span> <span class="chip ok">✓ Correct</span> <span class="area">Geometry · regular hexagon</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(\tfrac34\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(\tfrac34\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Let \(RANDOM\) be a regular hexagon of side \(1\). Points \(I,T\) lie on \(RA,DO\) with \(MI=MT\) and \(\angle TMI=90^\circ\). Compute the area of \(\triangle MIT\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>By symmetry \(IT\perp RA\) and \(IT\perp DO\), so \(IT\) equals the hexagon's height \(=\sqrt3\).</li>
+      <li>\(\triangle MIT\) is right-isosceles at \(M\) with hypotenuse \(IT\).</li>
+      <li>Area \(=\tfrac14\,IT^2=\tfrac14\cdot3=\tfrac34.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P2)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q3</span> <span class="chip ok">✓ Correct</span> <span class="area">Number theory · exponents</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(13\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(13\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Distinct positive integers \(a,b,c\) satisfy \(a^b\,b^c=a^c\). Find the minimum possible value of \(a+b+c\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>Divide: \(a^b b^c=a^c\Rightarrow b^c=a^{\,c-b}\), so \(a,b\) are powers of a common base, \(b&lt;a\).</li>
+      <li>Try powers of \(2\): \((a,b)=(8,2)\Rightarrow 2^c=8^{\,c-2}=2^{3c-6}\Rightarrow c=3\).</li>
+      <li>\((a,b,c)=(8,2,3)\) are distinct, \(a+b+c=13\); no smaller works.</li>
+      <li>\(\therefore 13.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P3)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q4</span> <span class="chip ok">✓ Correct</span> <span class="area">Number theory · base-10 digits</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(26\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(26\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">How many \(3\)-element subsets of \(\{10^1{+}1,10^2{+}1,\dots,10^7{+}1\}\) have a product whose base-10 digits are all \(0\) or \(1\)?</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>\((10^a{+}1)(10^b{+}1)(10^c{+}1)\) expands into a sum of \(8\) powers of \(10\).</li>
+      <li>All digits are \(0/1\) \(\iff\) the exponents \(a{+}b{+}c,b{+}c,a{+}c,a{+}b,a,b,c\) are all distinct.</li>
+      <li>With \(a&lt;b&lt;c\) the only possible clash is \(a+b=c\); there are exactly \(9\) such triples.</li>
+      <li>\(\therefore \binom73-9=35-9=26.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P4)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q5</span> <span class="chip ok">✓ Correct</span> <span class="area">Recursion · base 3</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(156\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(156\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">\(f(0)=0\) and \(f(3n{+}2)=f(3n{+}1)=f(3n){+}1=3f(n){+}1\) for \(n\ge0\). Compute the sum of all \(m\) with \(f(m)=13\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>In base \(3\), \(f\) takes a numeral and replaces every digit \(2\) by \(1\).</li>
+      <li>\(13=111_3\), so \(f(m)=13\iff m=\overline{abc}_3\) with each digit \(\in\{1,2\}\).</li>
+      <li>Each position is \(1\) or \(2\), each \(4\) times: sum \(=(4{\cdot}1+4{\cdot}2)(9+3+1)=12\cdot13=156.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P5)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q6</span> <span class="chip ok">✓ Correct</span> <span class="area">Number theory · digit casework</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(135\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(135\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">\(n\) is <i>stacked</i> if \(2n\) has the same number of digits as \(n\) and each digit of \(2n\) is a multiple of the corresponding digit of \(n\). Count the stacked integers below \(1000\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>1-digit: \(1,2,3,4\) \(\Rightarrow 4\).</li>
+      <li>2-digit: \(4\cdot5=20\) with both digits \(&lt;5\), plus \(15\) \(\Rightarrow 21\).</li>
+      <li>3-digit: \(100\) with all digits \(&lt;5\), plus \(195;\ 115,215,315,415;\ 150\text{–}154\) \(\Rightarrow 110\).</li>
+      <li>\(\therefore 4+21+110=135.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P6)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q7</span> <span class="chip ok">✓ Correct</span> <span class="area">Geometry · tangent circle, similarity</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(\tfrac{40\sqrt3}{39}\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(\tfrac{40\sqrt3}{39}\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">In \(\triangle ABC\), \(AB=5,\ BC=8,\ \angle ABC=60^\circ\). A circle \(\omega\) tangent to \(AB,BC\) meets \(CA\) at \(X,Y\) (order \(C,Y,X,A\)); \(\omega\) touches \(AB\) at \(Z\) with \(ZY\parallel BC\). Compute the radius of \(\omega\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>Let \(\omega\) touch \(BC\) at \(T\). \(BZ=BT\) and \(\angle B=60^\circ\Rightarrow\triangle BZT\) is equilateral.</li>
+      <li>Tangent at \(T\parallel BC\Rightarrow TY=TZ\); with the \(60^\circ\) angles \(\triangle TYZ\) is equilateral, side \(x\).</li>
+      <li>\(\triangle AYZ\sim\triangle ABC:\ \tfrac{5-x}{5}=\tfrac{x}{8}\Rightarrow x=\tfrac{40}{13}\).</li>
+      <li>Radius \(=\tfrac{x}{\sqrt3}=\tfrac{40}{13\sqrt3}=\tfrac{40\sqrt3}{39}.\)</li>
+      <li><b>✓</b> Yunje wrote exactly \(\tfrac{40\sqrt3}{39}\) — the rationalized official form.</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P7)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q8</span> <span class="chip ok">✓ Correct</span> <span class="area">Algebra · nested absolute value</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(285\)</span></span>
+        <span class="abox stu ok"><span class="k">Yunje</span><span class="val">\(285\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Let \(f(x)=\big|\cdots\big||x|-1\big|-2\big|-\cdots-10\big|\). Compute \(f(1)+f(2)+\cdots+f(55)\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>\(f\) is piecewise linear with slopes \(\pm1\); cusps occur where \(|x|\) is a triangular number \(T_k\).</li>
+      <li>\(f(0)=5\); on \([T_k,T_{k+1})\) the values average \(5\) (\(k\) even) or \(5.5\) (\(k\) odd).</li>
+      <li>Sum \(=5(3{+}5{+}7{+}9)+5.5(2{+}4{+}6{+}8{+}10)=120+165=285.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P8)</a></div>
+  </div>
+  <div class="card partial">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q9</span> <span class="chip partial">◐ Partial</span> <span class="area">Geometry · hexagon, two right angles</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(\tfrac12,\ \tfrac{\sqrt7}{7}\)</span></span>
+        <span class="abox stu partial"><span class="k">Yunje</span><span class="val">\(\tfrac12,\ \tfrac{\sqrt7}{17}\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Regular hexagon \(ABCDEF\), center \(O\), side \(1\). Interior point \(X\) satisfies \(\angle BXC=\angle AXE=90^\circ\). Compute all possible values of \(OX\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li>\(X\) lies on both the circle with diameter \(BC\) and that with diameter \(AE\): two intersection points.</li>
+      <li>\(X_1=AC\cap BE\) gives \(OX_1=\tfrac12\). <b>✓</b> Yunje found this value.</li>
+      <li>For \(X_2\): \(OX_2MN\) is an isosceles trapezoid; law of cosines gives \(MN=\tfrac{\sqrt7}{2}\), and Ptolemy gives \(OX_2\cdot MN=\tfrac12\).</li>
+      <li>\(\therefore OX_2=\dfrac{\tfrac12}{\sqrt7/2}=\dfrac{1}{\sqrt7}=\dfrac{\sqrt7}{7}.\)</li>
+      <li><b>Error:</b> Yunje wrote \(\tfrac{\sqrt7}{17}\) — the denominator should be \(7\) (i.e. \(1/\sqrt7\)), not \(17\).</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P9)</a></div>
+  </div>
+  <div class="card wrong">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q10</span> <span class="chip wrong">✗ Wrong</span> <span class="area">Combinatorics · partitions, casework</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">Official</span><span class="val">\(203\)</span></span>
+        <span class="abox stu wrong"><span class="k">Yunje</span><span class="val">\(45\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">Problem</div>
+    <div class="prob">Let \(S=\{1,2,\dots,64\}\). Compute the number of partitions of \(S\) into \(16\) arithmetic sequences, each of length \(4\) with common difference \(1\), \(4\), or \(16\).</div>
+    <div class="blabel sol">Solution</div>
+    <ol class="steps">
+      <li><b>Key claim:</b> no partition can use all three differences \(1,4,16\) — a spacing argument forces it down to two.</li>
+      <li>Case \(\{1,16\}\): #(diff-16) is a multiple of \(4\); the count is \(\binom{16}{0}+\binom{13}{1}+\binom{10}{2}+\binom73+\binom44=95\).</li>
+      <li>Case \(\{4,16\}\): each residue class chooses diff-4 or diff-16 independently \(\Rightarrow 2^4=16\).</li>
+      <li>Case \(\{1,4\}\): same composition count as \(\{1,16\}\) \(\Rightarrow 95\).</li>
+      <li>Total \(95+16+95=206\), minus \(3\) single-difference partitions counted twice \(\Rightarrow 203\).</li>
+      <li><b>Yunje wrote \(45\):</b> the three-case structure was missed — see the deep dive below.</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ Official solution (P10)</a></div>
+  </div>
+  <div class="dd">
+    <h3>Deep Dive — Problem 10: casework + counting compositions</h3>
+    <div class="body">
+      <ol class="steps concept">
+      <li><b>Structure:</b> a partition cannot use all three differences \(1,4,16\) at once — it forces a contradiction. So only two-difference cases survive: \(\{1,16\},\{4,16\},\{1,4\}\). Breaking the problem into three pieces is the whole game.</li>
+      <li><b>Counting compositions:</b> in case \(\{1,16\}\), how you lay out \(1\!-\!16\) into diff-1 blocks (length 4) and diff-16 slots (groups of 4) determines the entire partition. That equals the number of <b>ordered compositions</b> of \(16\) into parts \(1\) and \(4\), which is \(95\).</li>
+      <li><b>Other cases:</b> \(\{4,16\}\) lets each residue class pick independently \(\Rightarrow 2^4=16\); \(\{1,4\}\) is again the composition count \(95\).</li>
+      <li><b>Inclusion–exclusion:</b> \(95+16+95=206\), minus the \(3\) single-difference partitions double-counted, gives \(\mathbf{203}\). Always check you haven't counted the same object twice.</li>
+      </ol>
+      <div class="pq"><span class="pl">Practice 1.</span> Count the <b>ordered</b> compositions of \(16\) using parts \(1\) and \(4\). (e.g. \(4{+}4{+}4{+}4\), \(1{+}1{+}\cdots{+}1\), \(4{+}1{+}\cdots\))</div>
+      <details class="pt"><summary>Show solution</summary><ol class="steps">
+        <li>With \(k\) parts equal to \(4\), there are \(16-4k\) ones, so \(16-3k\) parts total.</li>
+        <li>Place the \(4\)s in \(\binom{16-3k}{k}\) ways: \(k=0,1,2,3,4\Rightarrow 1,13,45,35,1\).</li>
+        <li>\(\therefore 1+13+45+35+1=\mathbf{95}\) — exactly the key count in Problem 10.</li>
+      </ol></details>
+      <div class="pq"><span class="pl">Practice 2.</span> Count the ordered compositions of \(8\) using parts \(1\) and \(2\).</div>
+      <details class="pt"><summary>Show solution</summary><ol class="steps">
+        <li>The last part is \(1\) or \(2\), so \(g(n)=g(n-1)+g(n-2)\).</li>
+        <li>\(g(1),g(2),\dots=1,2,3,5,8,13,21,34\) (Fibonacci).</li>
+        <li>\(\therefore g(8)=\mathbf{34}.\)</li>
+      </ol></details>
+    </div>
+  </div>
+  <div class="sec"><h2 id="kor">한글 해설</h2><a class="top" href="#topnav">▲ Top / 맨 위로</a></div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q1</span> <span class="chip ok">✓ 정답</span> <span class="area">논리 · 정수의 곱</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(42\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(42\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">연속한 양의 정수 \(6\)개를 세 사람에게 \(2\)개씩 나눠 준다. Ethan 두 수의 곱은 \(20\), Jacob 두 수의 곱은 \(24\). Karthik 두 수의 곱을 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>\(20=4\cdot5\): 연속한 6수 안에서 곱이 \(20\)인 쌍은 \(4,5\) 뿐.</li>
+      <li>\(24=4\cdot6\) 또는 \(3\cdot8\); \(4\)는 이미 쓰였으므로 Jacob은 \(3,8\).</li>
+      <li>여섯 수는 \(3,4,5,6,7,8\); 남은 \(6,7\)이 Karthik의 것.</li>
+      <li>\(\therefore 6\cdot7=42.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 1)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q2</span> <span class="chip ok">✓ 정답</span> <span class="area">기하 · 정육각형</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(\tfrac34\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(\tfrac34\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">정육각형 \(RANDOM\) (한 변 \(1\)). \(I\in RA,\ T\in DO\), \(MI=MT\), \(\angle TMI=90^\circ\). \(\triangle MIT\)의 넓이를 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>대칭성으로 \(IT\perp RA,\ IT\perp DO\) → \(IT\)는 육각형의 높이 \(=\sqrt3\).</li>
+      <li>\(\triangle MIT\)는 \(M\)에서 직각인 직각이등변삼각형, 빗변이 \(IT\).</li>
+      <li>넓이 \(=\tfrac14\,IT^2=\tfrac14\cdot3=\tfrac34.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 2)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q3</span> <span class="chip ok">✓ 정답</span> <span class="area">정수론 · 지수</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(13\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(13\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">서로 다른 양의 정수 \(a,b,c\)가 \(a^b\,b^c=a^c\)를 만족. \(a+b+c\)의 최솟값을 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>양변을 나누면 \(a^b b^c=a^c\Rightarrow b^c=a^{\,c-b}\) → \(a,b\)는 같은 밑의 거듭제곱, \(b&lt;a\).</li>
+      <li>\(2\)의 거듭제곱: \((a,b)=(8,2)\Rightarrow 2^c=8^{\,c-2}=2^{3c-6}\Rightarrow c=3\).</li>
+      <li>\((8,2,3)\)은 서로 다르고 \(a+b+c=13\); 더 작은 값은 없음.</li>
+      <li>\(\therefore 13.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 3)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q4</span> <span class="chip ok">✓ 정답</span> <span class="area">정수론 · 자릿수</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(26\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(26\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(\{10^1{+}1,10^2{+}1,\dots,10^7{+}1\}\)의 \(3\)원소 부분집합 중, 세 수의 곱이 \(10\)진법에서 자릿수가 모두 \(0\) 또는 \(1\)인 것의 개수.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>\((10^a{+}1)(10^b{+}1)(10^c{+}1)\)를 전개하면 \(10\)의 거듭제곱 \(8\)개의 합.</li>
+      <li>모든 자리가 \(0/1\) \(\iff\) 지수 \(a{+}b{+}c,b{+}c,a{+}c,a{+}b,a,b,c\)가 모두 서로 다름.</li>
+      <li>\(a&lt;b&lt;c\)에서 겹칠 수 있는 건 \(a+b=c\)뿐 → 그런 삼중쌍은 \(9\)개.</li>
+      <li>\(\therefore \binom73-9=35-9=26.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 4)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q5</span> <span class="chip ok">✓ 정답</span> <span class="area">점화식 · 3진법</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(156\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(156\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(f(0)=0\), 그리고 모든 \(n\ge0\)에 대해 \(f(3n{+}2)=f(3n{+}1)=f(3n){+}1=3f(n){+}1\). \(f(m)=13\)인 모든 \(m\)의 합을 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>3진법에서 \(f\)는 수의 모든 자리 \(2\)를 \(1\)로 바꾸는 함수.</li>
+      <li>\(13=111_3\) → \(f(m)=13\iff m=\overline{abc}_3\), 각 자리 \(\in\{1,2\}\).</li>
+      <li>각 자리는 \(1\) 또는 \(2\)가 각각 \(4\)번: 합 \(=(4{\cdot}1+4{\cdot}2)(9+3+1)=12\cdot13=156.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 5)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q6</span> <span class="chip ok">✓ 정답</span> <span class="area">정수론 · 자릿수 분류</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(135\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(135\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(2n\)이 \(n\)과 자릿수가 같고 \(2n\)의 각 자리가 \(n\)의 대응 자리의 배수이면 \(n\)을 <i>stacked</i>라 한다. \(1000\) 미만의 stacked 정수의 개수.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>한 자리: \(1,2,3,4\) \(\Rightarrow 4\).</li>
+      <li>두 자리: 두 자리 모두 \(&lt;5\)인 \(4\cdot5=20\)개, 그리고 \(15\) \(\Rightarrow 21\).</li>
+      <li>세 자리: 모든 자리 \(&lt;5\)인 \(100\)개, 그리고 \(195;\ 115,215,315,415;\ 150\text{–}154\) \(\Rightarrow 110\).</li>
+      <li>\(\therefore 4+21+110=135.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 6)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q7</span> <span class="chip ok">✓ 정답</span> <span class="area">기하 · 접하는 원·닮음</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(\tfrac{40\sqrt3}{39}\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(\tfrac{40\sqrt3}{39}\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(\triangle ABC\)에서 \(AB=5,\ BC=8,\ \angle ABC=60^\circ\). \(AB,BC\)에 접하는 원 \(\omega\)가 \(CA\)와 \(X,Y\)에서 만남(순서 \(C,Y,X,A\)); \(\omega\)는 \(AB\)와 \(Z\)에서 접하고 \(ZY\parallel BC\). \(\omega\)의 반지름을 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>\(\omega\)가 \(BC\)에 접하는 점을 \(T\). \(BZ=BT\), \(\angle B=60^\circ\Rightarrow\triangle BZT\)는 정삼각형.</li>
+      <li>\(T\)에서의 접선이 \(BC\)와 평행 → \(TY=TZ\); \(60^\circ\)각들로 \(\triangle TYZ\)도 정삼각형, 한 변 \(x\).</li>
+      <li>\(\triangle AYZ\sim\triangle ABC:\ \tfrac{5-x}{5}=\tfrac{x}{8}\Rightarrow x=\tfrac{40}{13}\).</li>
+      <li>반지름 \(=\tfrac{x}{\sqrt3}=\tfrac{40}{13\sqrt3}=\tfrac{40\sqrt3}{39}.\)</li>
+      <li><b>✓</b> 유윤제는 정확히 \(\tfrac{40\sqrt3}{39}\) (유리화한 공식 정답 형태)로 적음.</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 7)</a></div>
+  </div>
+  <div class="card ok">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q8</span> <span class="chip ok">✓ 정답</span> <span class="area">대수 · 중첩 절댓값</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(285\)</span></span>
+        <span class="abox stu ok"><span class="k">유윤제</span><span class="val">\(285\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(f(x)=\big|\cdots\big||x|-1\big|-2\big|-\cdots-10\big|\). \(f(1)+f(2)+\cdots+f(55)\)를 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>\(f\)는 기울기 \(\pm1\)의 조각선형; 꺾이는 점은 \(|x|\)가 삼각수 \(T_k\)일 때.</li>
+      <li>\(f(0)=5\); 구간 \([T_k,T_{k+1})\)에서 값들의 평균은 \(5\)(\(k\) 짝수) 또는 \(5.5\)(\(k\) 홀수).</li>
+      <li>합 \(=5(3{+}5{+}7{+}9)+5.5(2{+}4{+}6{+}8{+}10)=120+165=285.\)</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 8)</a></div>
+  </div>
+  <div class="card partial">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q9</span> <span class="chip partial">◐ 부분 정답</span> <span class="area">기하 · 육각형·두 직각</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(\tfrac12,\ \tfrac{\sqrt7}{7}\)</span></span>
+        <span class="abox stu partial"><span class="k">유윤제</span><span class="val">\(\tfrac12,\ \tfrac{\sqrt7}{17}\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">정육각형 \(ABCDEF\), 중심 \(O\), 한 변 \(1\). 내부 점 \(X\)가 \(\angle BXC=\angle AXE=90^\circ\). \(OX\)의 가능한 모든 값을 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li>\(X\)는 지름이 \(BC\)인 원과 지름이 \(AE\)인 원 위에 동시에 있음 → 교점 두 개.</li>
+      <li>\(X_1=AC\cap BE\) → \(OX_1=\tfrac12\). <b>✓</b> 유윤제가 맞힌 값.</li>
+      <li>\(X_2\): \(OX_2MN\)은 등변사다리꼴; 코사인법칙으로 \(MN=\tfrac{\sqrt7}{2}\), 톨레미로 \(OX_2\cdot MN=\tfrac12\).</li>
+      <li>\(\therefore OX_2=\dfrac{\tfrac12}{\sqrt7/2}=\dfrac{1}{\sqrt7}=\dfrac{\sqrt7}{7}.\)</li>
+      <li><b>오답:</b> 유윤제는 \(\tfrac{\sqrt7}{17}\)로 적음 — 분모는 \(7\)(즉 \(1/\sqrt7\))이어야 하며 \(17\)이 아님.</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 9)</a></div>
+  </div>
+  <div class="card wrong">
+    <div class="chead">
+      <div class="cleft"><span class="qn">Q10</span> <span class="chip wrong">✗ 오답</span> <span class="area">조합 · 분할·경우의 수</span></div>
+      <div class="ans">
+        <span class="abox off"><span class="k">공식 정답</span><span class="val">\(203\)</span></span>
+        <span class="abox stu wrong"><span class="k">유윤제</span><span class="val">\(45\)</span></span>
+      </div>
+    </div>
+    <div class="blabel">문제</div>
+    <div class="prob">\(S=\{1,2,\dots,64\}\). \(S\)를 길이 \(4\)이고 공차가 \(1,4,16\) 중 하나인 등차수열 \(16\)개로 분할하는 경우의 수를 구하라.</div>
+    <div class="blabel sol">풀이</div>
+    <ol class="steps">
+      <li><b>핵심 주장:</b> 세 공차 \(1,4,16\)을 모두 쓰는 분할은 불가능 (간격 논증) → 항상 두 종류만 사용.</li>
+      <li>경우 \(\{1,16\}\): 공차 16 수열 개수는 \(4\)의 배수 → \(\binom{16}{0}+\binom{13}{1}+\binom{10}{2}+\binom73+\binom44=95\).</li>
+      <li>경우 \(\{4,16\}\): 잔여류 4개가 각각 (공차4/공차16) 독립 선택 \(\Rightarrow 2^4=16\).</li>
+      <li>경우 \(\{1,4\}\): \(\{1,16\}\)과 같은 합성 카운트 \(\Rightarrow 95\).</li>
+      <li>합 \(95+16+95=206\)에서 한 종류만 쓰는 분할 \(3\)개를 중복으로 빼 \(\Rightarrow 203\).</li>
+      <li><b>유윤제는 \(45\):</b> 세 경우로 나누는 구조를 놓침 — 아래 심화 해설 참고.</li>
+    </ol>
+    <div class="sollink"><a href="https://hmmt-archive.s3.amazonaws.com/tournaments/2024/nov/gen/solutions.pdf" target="_blank">→ 공식 해설 (문제 10)</a></div>
+  </div>
+  <div class="dd">
+    <h3>심화 — 10번: 경우 나누기 + 합성(composition) 세기</h3>
+    <div class="body">
+      <ol class="steps concept">
+      <li><b>구조 파악:</b> 세 공차 \(1,4,16\)을 동시에 쓰는 분할은 모순이 생겨 불가능하다. 따라서 실제로는 두 공차만 쓰는 \(\{1,16\},\{4,16\},\{1,4\}\) 세 경우뿐 — 문제를 작은 세 조각으로 쪼개는 것이 핵심.</li>
+      <li><b>합성 세기:</b> 경우 \(\{1,16\}\)에서 \(1\sim16\) 구간을 '공차1 블록(길이 4)'과 '공차16 자리(4개 묶음)'로 어떻게 배열하느냐가 전체 분할을 결정한다. 이는 \(16\)을 부품 \(1\)과 \(4\)로 만드는 <b>순서 있는 합성</b>의 수 \(=95\)와 같다.</li>
+      <li><b>나머지 두 경우:</b> \(\{4,16\}\)은 잔여류 \(4\)개가 독립적으로 둘 중 하나를 골라 \(2^4=16\); \(\{1,4\}\)는 다시 합성 카운트 \(95\).</li>
+      <li><b>포함–배제:</b> \(95+16+95=206\)에서 '한 공차만 쓰는' 분할 \(3\)개가 두 경우에 중복으로 세어졌으니 빼서 \(\mathbf{203}\). — 같은 대상을 두 번 세지 않았는지 항상 점검할 것.</li>
+      </ol>
+      <div class="pq"><span class="pl">연습문제 1.</span> 부품 \(1\)과 \(4\)만으로 \(16\)을 만드는 <b>순서 있는</b> 합성의 수를 구하라. (예: \(4{+}4{+}4{+}4\), \(1{+}1{+}\cdots{+}1\), \(4{+}1{+}\cdots\))</div>
+      <details class="pt"><summary>해설 보기</summary><ol class="steps">
+        <li>\(4\)를 \(k\)개 쓰면 \(1\)은 \(16-4k\)개, 항의 총수는 \(16-3k\)개.</li>
+        <li>그 자리에 \(4\)를 놓는 방법 \(\binom{16-3k}{k}\): \(k=0,1,2,3,4\) → \(1,13,45,35,1\).</li>
+        <li>\(\therefore 1+13+45+35+1=\mathbf{95}\) — 10번의 핵심 카운트와 정확히 같다.</li>
+      </ol></details>
+      <div class="pq"><span class="pl">연습문제 2.</span> 부품 \(1\)과 \(2\)만으로 \(8\)을 만드는 순서 있는 합성의 수를 구하라.</div>
+      <details class="pt"><summary>해설 보기</summary><ol class="steps">
+        <li>마지막 항이 \(1\) 또는 \(2\)이므로 \(g(n)=g(n-1)+g(n-2)\).</li>
+        <li>\(g(1),g(2),\dots=1,2,3,5,8,13,21,34\) (피보나치).</li>
+        <li>\(\therefore g(8)=\mathbf{34}.\)</li>
+      </ol></details>
+    </div>
+  </div>
+</div>
+<footer>아이워크수학 · iWork Math · 제작·편집 원장 이상열 · HMMT-2411-GEN · 생성 2026-06-20 21:01 · 파일 HMMT_Nov2024_General_채점_2606202101.html · 무단복제 금지</footer>
+</body>
+</html>

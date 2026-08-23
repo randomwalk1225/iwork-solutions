@@ -12,6 +12,7 @@ GitHub Pages 로 공개 게시.
 ```
 index.html              # 리포트 카탈로그(랜딩)
 reports/                # 개별 채점·해설 리포트 (self-contained HTML, PDF)
+misc/                   # 교육 외 기타업무용 개인자료 긴급 공유 (링크 안 함, 무작위 폴더명, 끝나면 삭제) — misc/README.md
   hmmt-2024-general-yunje.html / .pdf
   hmmt-2025-general-yunje.html
 .nojekyll               # Jekyll 처리 비활성(파일 그대로 서빙)

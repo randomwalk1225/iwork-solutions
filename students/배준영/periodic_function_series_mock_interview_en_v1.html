@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mock Interview — Periodic Functions &amp; a Series of Semicircles</title>
+<style>
+:root{--bg:#fff;--ink:#1b2733;--muted:#697585;--line:#e6e9ee;--accent:#184f7d;--accent2:#2e7d5b;
+--soft:#f6f8fa;--iv:#eef4fa;--ca:#eef7f1;--note:#fff8ec;--noteink:#8a5a12;--warn:#fcefee;--warnink:#a23b34}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1419;--ink:#e6ebf0;--muted:#93a1b0;--line:#232c36;
+--accent:#6fb2e8;--accent2:#7fd0a6;--soft:#161c24;--iv:#15222e;--ca:#152219;--note:#241f13;--noteink:#e0b874;--warn:#2c1a1a;--warnink:#e89189}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Charter","Georgia","Noto Sans KR",system-ui,serif;background:var(--bg);
+color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:34px 20px 120px}
+header .brand{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+header h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin:8px 0 4px;line-height:1.3}
+header .sub{color:var(--muted);font-size:15.5px;margin:0 0 10px}
+header .meta{color:var(--muted);font-size:13.5px;display:flex;flex-wrap:wrap;gap:6px 14px;margin-bottom:6px}
+header .meta b{color:var(--ink);font-weight:600}
+header{border-bottom:2px solid var(--accent);padding-bottom:16px;margin-bottom:8px}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);
+padding:10px 0;margin:8px 0 18px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+nav.toc a{font-size:13.5px;color:var(--muted);text-decoration:none;font-weight:600;white-space:nowrap}
+nav.toc a:hover{color:var(--accent)}
+.printbtn{margin-left:auto;font:inherit;font-size:13px;font-weight:700;padding:6px 14px;border:1px solid var(--accent);
+background:var(--accent);color:#fff;border-radius:99px;cursor:pointer}
+.printbtn:hover{opacity:.9}
+.box{background:var(--soft);border-radius:10px;padding:16px 20px;margin:16px 0}
+.box .bt{font-weight:700;color:var(--accent);font-size:15px;margin-bottom:8px;letter-spacing:.01em}
+.box.problem{background:var(--iv)}
+.box p{margin:.5em 0}.box ul,.box ol{margin:.5em 0;padding-left:1.3em}.box li{margin:.28em 0}
+h2.qh{font-size:21px;margin:44px 0 4px;padding-bottom:8px;border-bottom:1px solid var(--line);color:var(--ink)}
+h2.qh .n{color:var(--accent);font-weight:800;margin-right:8px}
+main{margin-top:14px}
+.turn{padding:14px 18px;border-radius:10px;margin:10px 0}
+.turn.interviewer{background:var(--iv)}
+.turn.candidate{background:var(--ca)}
+.turn .head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.turn .sp{font-weight:800;font-size:14px}
+.turn.interviewer .sp{color:var(--accent)}
+.turn.candidate .sp{color:var(--accent2)}
+.turn .role{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+.turn .txt{font-size:16.5px}
+.note{background:var(--note);border-radius:8px;padding:10px 14px;margin:8px 0 2px;font-size:14px;color:var(--noteink)}
+.note b{color:var(--noteink)}
+.kp{background:var(--soft);border-radius:10px;padding:18px 22px;margin:26px 0}
+.kp .bt{font-weight:800;color:var(--accent);font-size:16px;margin-bottom:10px}
+.kp ol{margin:.2em 0;padding-left:1.3em}.kp li{margin:.45em 0}
+figure{margin:16px 0;text-align:center}
+svg{max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.tblwrap{overflow-x:auto}
+table.gloss{width:100%;border-collapse:collapse;margin:14px 0;font-size:15.5px}
+table.gloss th,table.gloss td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.gloss th{color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid var(--line)}
+table.gloss td.en{font-weight:600}
+.ipa{font-family:'Gentium Plus','Charis SIL','Times New Roman',serif;color:var(--accent2);white-space:nowrap}
+.stress{font-family:'Noto Sans KR',sans-serif;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.stress b{color:var(--ink)}
+.kr{font-family:'Noto Sans KR',sans-serif}
+.script{background:var(--soft);border-radius:10px;padding:18px 22px;margin:16px 0}
+.script p{margin:.6em 0}
+.script .n{color:var(--accent);font-weight:700;margin-right:6px}
+.rank{background:var(--warn);border-radius:10px;padding:6px 20px 14px;margin:16px 0}
+.rank ol{margin:.5em 0;padding-left:1.3em}
+.rank li{margin:.5em 0}
+.rank b{color:var(--warnink)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+
+@media print{
+  @page{size:A4;margin:14mm 15mm}
+  html{scroll-behavior:auto}
+  body{background:#fff;color:#000;line-height:1.5;font-size:10.5pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;margin:0;padding:0}
+  nav.toc,footer,header .brand{display:none!important}
+  header h1{font-size:16pt;margin:0 0 2pt;color:#000}
+  header .sub{font-size:10pt;margin:0 0 4pt}
+  header .meta{font-size:8.5pt;margin-bottom:8pt;gap:2pt 10pt}
+  header .meta b{color:#000}
+  header{border-bottom:1.5pt solid #000;padding-bottom:6pt;margin-bottom:8pt}
+  h2.qh{font-size:13pt;margin:16pt 0 4pt;break-after:avoid}
+  .box{background:#fff!important;border:1pt solid #999;border-radius:5px;padding:8pt 11pt;margin:8pt 0;break-inside:avoid}
+  .box .bt{font-size:11pt;color:#000}
+  main{margin-top:6pt}
+  .turn{background:#fff!important;border-radius:0;padding:5pt 0;margin:0;border-bottom:0.5pt solid #ddd;break-inside:avoid}
+  .turn.candidate{padding-left:18pt}
+  .turn .head{margin-bottom:2pt;gap:7pt}
+  .turn .sp{font-size:10.5pt;color:#000}
+  .turn.candidate .sp::before{content:"› "}
+  .turn .role{border:0.5pt solid #999;color:#444;font-size:8pt;padding:0 6pt}
+  .turn .txt{font-size:10.5pt}
+  .note{background:#fff!important;border:0.5pt dashed #bbb;color:#333;font-size:9pt;padding:5pt 9pt;break-inside:avoid}
+  .note b{color:#000}
+  .kp{background:#fff!important;border:1pt solid #999;break-inside:avoid;padding:10pt 14pt}
+  .kp .bt{font-size:12pt;color:#000}
+  table.gloss{break-inside:avoid;font-size:9pt}
+  .script{background:#fff!important;border:1pt solid #999;break-inside:avoid}
+  .rank{background:#fff!important;border:1pt solid #999;break-inside:avoid}
+}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head><body>
+<div class="wrap">
+<header>
+  <div class="brand">Oxbridge Interview Practice · Simulated</div>
+  <h1>Mock Interview — Periodic Functions &amp; a Series of Semicircles</h1>
+  <div class="sub">Two TMUA/MAT-style problems rebuilt as a rehearsal script: a functional equation that forces a triangle wave, and a curve built from infinitely many shrinking semicircular arcs. Not a real recorded interview — written for practice, read both parts aloud.</div>
+  <div class="meta"><span>Format <b>simulated Oxford-style viva</b></span>
+  <span>Interviewer <b>Tutor</b></span><span>Candidate <b>Junyoung</b></span>
+  <span>Builds on <b>260716-002_FunctionalEquations_Workbook_v1</b></span></div>
+</header>
+
+<nav class="toc">
+<a href="#q15">Q1 · Triangle wave</a>
+<a href="#q20">Q2 · Semicircle series</a>
+<a href="#kp">Debrief</a>
+<a href="#eng">English study</a>
+<button class="printbtn" onclick="window.print()">Print / Save PDF</button>
+</nav>
+
+<h2 class="qh" id="q15"><span class="n">Question 1</span>How many solutions does \(f(x)=\tfrac{x}{3}-1\) have?</h2>
+<div class="box problem"><div class="bt">Opening question</div>
+<p>A function \(f(x)\) satisfies \(f(x)=3x\) for \(0\le x\le1\), and \(f(x-1)=f(1-x)=f(1+x)\) for all \(x\). Find the number of solutions to \(f(x)=\dfrac{x}{3}-1\).</p></div>
+
+<main>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Take a moment. You're told what \(f\) does on \([0,1]\), and then two functional equations that presumably extend it everywhere else. Before touching the equation \(f(x)=x/3-1\) — what should you extract from those two conditions first?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">I should turn each condition into a geometric statement about the graph — is it a symmetry, a periodicity, something else — before I try to use it. Let me look at \(f(1-x)=f(1+x)\) first. That says the value at a distance \(x\) to the left of \(1\) equals the value at distance \(x\) to the right of \(1\). So the graph is <b>symmetric about the line \(x=1\)</b>.</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Good. Now the other one, \(f(x-1)=f(1-x)\). That's less obviously geometric — can you turn it into a statement about \(f\) alone, without the "\(1\)" cluttering it?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">I'll substitute to clean it up. Let \(u=x-1\), so \(x=u+1\). Then the equation becomes \(f(u)=f(1-(u+1))=f(-u)\). So \(f(u)=f(-u)\) for every \(u\) — <b>\(f\) is an even function</b>, symmetric about \(x=0\).</div></div>
+
+<div class="note"><b>Why the interviewer asks this way.</b> The three-way chained equality \(f(x-1)=f(1-x)=f(1+x)\) looks intimidating as one object. Splitting it into two separate pairwise equalities and translating each into "symmetric about this vertical line" is exactly the kind of simplification interviewers want to see you do unprompted.</div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">So now you have two symmetries: about \(x=0\) and about \(x=1\). What do two reflection symmetries at different axes combine to give you?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">Composing two reflections gives a translation — by twice the distance between the mirror lines. Here the lines are \(x=0\) and \(x=1\), distance \(1\) apart, so I'd expect a shift by \(2\). Let me check it directly: \(f(x+2)=f(1+(x+1))\), and by the symmetry about \(x=1\), that equals \(f(1-(x+1))=f(-x)\), and by evenness \(f(-x)=f(x)\). So \(f(x+2)=f(x)\) — <b>\(f\) is periodic with period \(2\)</b>.</div></div>
+
+<div class="note"><b>What this checks.</b> Recognising "reflection + reflection = translation" is a genuinely useful piece of mathematical culture, but the interviewer doesn't need you to know it by name — they need you to verify the period algebraically once you suspect it, which is exactly what happened here.</div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">So: even, period \(2\), and \(f(x)=3x\) on \([0,1]\). Sketch it for me — what does the graph actually look like?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">On \([0,1]\) it's a straight line from \((0,0)\) up to \((1,3)\), slope \(3\). By evenness, on \([-1,0]\) it's the mirror image: from \((-1,3)\) down to \((0,0)\). That's already a full period — \(2\) wide — a "tent" or "up-down" shape reaching height \(3\) at \(x=-1\) and \(0\) at \(x=0\). Then it just repeats every \(2\) units. So the graph is a <b>triangle wave</b>: it climbs linearly from \(0\) to \(3\) on every interval \([2k,2k+1]\) and falls linearly from \(3\) to \(0\) on every interval \([2k+1,2k+2]\), for integer \(k\). Peaks of height \(3\) sit at every odd integer, and it touches \(0\) at every even integer.</div></div>
+
+<figure>
+<svg viewBox="0 0 620 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Triangle wave graph with intersecting line">
+<line x1="20" y1="190" x2="600" y2="190" stroke="currentColor" stroke-opacity="0.35" stroke-width="1"/>
+<polyline points="20,190 60,70 100,190 140,70 180,190 220,70 260,190 300,70 340,190 380,70 420,190 460,70 500,190 540,70 580,190" fill="none" stroke="#184f7d" stroke-width="2.4"/>
+<line x1="20" y1="150" x2="600" y2="30" stroke="#2e7d5b" stroke-width="2"/>
+<text x="24" y="205" font-size="11" fill="currentColor" opacity="0.6">x=0</text>
+<text x="560" y="205" font-size="11" fill="currentColor" opacity="0.6">x=13</text>
+<text x="500" y="45" font-size="12" fill="#2e7d5b">y = x/3 − 1</text>
+<text x="480" y="80" font-size="12" fill="#184f7d">f(x) — triangle wave</text>
+</svg>
+<figcaption>The slow line \(y=x/3-1\) has to cross the steep triangle wave (slope \(\pm3\)) once on almost every monotone segment — that's the counting argument below.</figcaption>
+</figure>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Now bring in the line \(y=x/3-1\). Where does it even have a chance of meeting the wave?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">The wave only takes values in \([0,3]\), so I need \(0\le x/3-1\le3\), which gives \(3\le x\le12\). For \(x<3\) the line is negative while \(f(x)\ge0\), so there's no crossing there — except I should double check the boundary \(x=3\) itself: \(f(3)=f(1)=3\) by periodicity, but the line gives \(0\), so they don't actually meet at \(x=3\).</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Right. So now count. What's your strategy for counting intersections on \([3,12]\) without just staring at the picture?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">I'll go segment by segment. Each monotone piece of the wave has slope \(+3\) or \(-3\), and the line has slope \(1/3\) — much shallower — so on any single segment, \(f(x)-\text{line}(x)\) is itself strictly monotonic (it can't turn around), which means there is <i>at most one</i> crossing per segment. So I just need to check the sign of \(f(x)-\text{line}(x)\) at each integer breakpoint from \(x=3\) to \(x=12\), and count the sign changes.</div></div>
+
+<div class="note"><b>The key idea, stated cleanly.</b> "Difference of a slope-\(3\) piece and a slope-\(1/3\) line is monotonic ⟹ at most one root per piece" is the whole argument. Everything after this is bookkeeping.</div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Go on then — do the bookkeeping.</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">Peaks (\(f=3\)) are at the odd integers \(3,5,7,9,11\); troughs (\(f=0\)) are at the even integers \(4,6,8,10,12\). The line rises slowly through \(L(3)=0,\ L(4)=\tfrac13,\ L(5)=\tfrac23,\dots,L(12)=3\) — always strictly between \(0\) and \(3\) on the open interval, so it never sits exactly on a peak or a trough. That means \(f-L\) changes sign at <i>every single</i> breakpoint from \(x=3\) to \(x=12\): positive right after a peak (since \(f\) is near \(3\), line is below \(3\)), negative right after a trough. Counting the segments \([3,4],[4,5],\dots,[11,12]\) — that's \(9\) segments — each contributes exactly one crossing. Beyond \(x=12\), the line exceeds \(3\) while \(f\le3\) always, so \(f-L<0\) for good and there are no more crossings.</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">So your answer?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt"><b>\(9\) solutions.</b></div></div>
+
+<div class="note"><b>Why the interviewer likes this problem.</b> It rewards exactly the habit of turning symbolic conditions into geometric ones (symmetry → periodicity → shape), and then replacing "count intersections from a sketch" with a rigorous monotonicity argument that doesn't depend on drawing an accurate picture.</div>
+
+</main>
+
+<div class="kp" style="margin-top:20px"><div class="bt">Debrief — Question 1</div>
+<ol>
+<li>Can you convert \(f(a-x)=f(a+x)\) into "symmetric about \(x=a\)" on sight, and \(f(-x)=f(x)\) into "even function"?</li>
+<li>Do you know — or can you discover live — that two reflections about different vertical lines compose to a translation by twice the gap, and then <i>verify</i> it algebraically rather than just asserting it?</li>
+<li>Can you convert an abstract periodic/symmetric function with a stated formula on one interval into an explicit global description (here: a triangle wave)?</li>
+<li>Given two curves, can you replace "count intersections from the graph" with a rigorous slope-comparison argument (monotonic difference ⟹ at most one root per monotone piece)?</li>
+<li>Do you check the boundary behaviour (why no solutions for \(x<3\) or \(x>12\)) rather than just counting inside a suspected range?</li>
+</ol>
+</div>
+
+<h2 class="qh" id="q20"><span class="n">Question 2</span>Total length of a curve made of shrinking semicircles</h2>
+<div class="box problem"><div class="bt">Opening question</div>
+<p>For every integer \(n\ge1\), define
+$$ f(x) = (-1)^{n+1}\sqrt{2^{2-2n}-\left(x-4+\dfrac{6}{2^{n}}\right)^{2}} $$
+for \(4-2^{3-n} < x < 4-2^{2-n}\) only. Find the total length of the curve \(f(x)\).</p></div>
+
+<main>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">This looks unpleasant symbolically. Before manipulating anything — what shape does one square-root expression like this, on its own, normally represent?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">An expression of the form \(y=\pm\sqrt{r^2-(x-c)^2}\) is a circle of radius \(r\) centred at \((c,0)\) — the \(+\) sign gives the upper half, the \(-\) sign gives the lower half. So for fixed \(n\) I should identify \(r\) and \(c\) by matching against \(r^2-(x-c)^2\).</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Do that matching for me.</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">Comparing \(2^{2-2n}\) with \(r^2\): \(r^2=2^{2-2n}=(2^{1-n})^2\), so \(r_n=2^{1-n}\). And the centre is \(c_n=4-\dfrac{6}{2^{n}}=4-6\cdot2^{-n}\). So for each \(n\), this is a circle of radius \(2^{1-n}\) centred at \(\left(4-6\cdot2^{-n},\,0\right)\).</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Good. Now the domain restricts it to a semicircle — but check that the given domain actually matches the natural domain of the square root. Do the endpoints line up?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">The square root is only real on \([c_n-r_n,\,c_n+r_n]\). Let me compute those: \(c_n-r_n=4-6\cdot2^{-n}-2\cdot2^{-n}=4-8\cdot2^{-n}=4-2^{3-n}\), and \(c_n+r_n=4-6\cdot2^{-n}+2\cdot2^{-n}=4-4\cdot2^{-n}=4-2^{2-n}\). That's <i>exactly</i> the given open interval \(\left(4-2^{3-n},\,4-2^{2-n}\right)\) — so nothing is being cut off or extended, it's the full semicircle with its two endpoints (where the radius meets the axis) excluded.</div></div>
+
+<div class="note"><b>Why this check matters.</b> It's tempting to jump straight to "these are semicircles" from the formula alone. Verifying that the stated domain exactly equals the circle's natural domain confirms it's a genuine, undistorted semicircle each time — not a smaller arc.</div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">And the sign \((-1)^{n+1}\) in front?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">That alternates: \(+1\) when \(n\) is odd, \(-1\) when \(n\) is even. So odd \(n\) gives the <b>upper</b> semicircle, even \(n\) gives the <b>lower</b> semicircle. The curve alternates above and below the \(x\)-axis as \(n\) increases.</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">So describe the whole curve — all \(n\) together — informally, before computing anything.</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">As \(n\) increases, the radius \(r_n=2^{1-n}\) keeps halving, and the centre \(c_n=4-6\cdot2^{-n}\) creeps towards \(4\). So it's a chain of semicircular arcs, alternating above and below the axis, shrinking geometrically, all converging in on the single point \((4,0)\) — like a spiral of shrinking bumps collapsing into one point.</div></div>
+
+<figure>
+<svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chain of shrinking alternating semicircles converging to a point">
+<line x1="20" y1="100" x2="620" y2="100" stroke="currentColor" stroke-opacity="0.3" stroke-width="1"/>
+<path d="M 40 100 A 80 80 0 0 1 200 100" fill="none" stroke="#184f7d" stroke-width="2.4"/>
+<path d="M 200 100 A 40 40 0 0 0 280 100" fill="none" stroke="#2e7d5b" stroke-width="2.4"/>
+<path d="M 280 100 A 20 20 0 0 1 320 100" fill="none" stroke="#184f7d" stroke-width="2.2"/>
+<path d="M 320 100 A 10 10 0 0 0 340 100" fill="none" stroke="#2e7d5b" stroke-width="2"/>
+<path d="M 340 100 A 5 5 0 0 1 350 100" fill="none" stroke="#184f7d" stroke-width="1.6"/>
+<circle cx="356" cy="100" r="2" fill="currentColor"/>
+<text x="356" y="120" font-size="11" fill="currentColor" opacity="0.7">(4, 0)</text>
+<text x="60" y="30" font-size="12" fill="#184f7d">n=1 (upper)</text>
+<text x="210" y="175" font-size="12" fill="#2e7d5b">n=2 (lower)</text>
+</svg>
+<figcaption>Radius halves each time (\(r_n=2^{1-n}\)); arcs alternate above/below the axis and telescope into the point \((4,0)\).</figcaption>
+</figure>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Right — now find the total length. What's the arc length of a semicircle of radius \(r\), and how do you combine them?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">A full circle has circumference \(2\pi r\), so a semicircle has length \(\pi r\). The total length of the whole curve is just the sum over all \(n\ge1\) of these semicircle lengths — the pieces don't overlap, they just chain together end to end — so
+$$ \text{Total length}=\sum_{n=1}^{\infty}\pi r_n=\pi\sum_{n=1}^{\infty}2^{1-n}. $$</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Evaluate that sum.</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">\(\sum_{n=1}^{\infty}2^{1-n}=2^{0}+2^{-1}+2^{-2}+\cdots=1+\tfrac12+\tfrac14+\cdots\) — a geometric series with first term \(a=1\) and common ratio \(\tfrac12\), so it sums to \(\dfrac{a}{1-\tfrac12}=\dfrac{1}{1/2}=2\). So the total length is \(\pi\cdot2=2\pi\).</div></div>
+
+<div class="turn interviewer"><div class="head"><span class="sp">Tutor</span><span class="role">interviewer</span></div>
+<div class="txt">Interesting — an infinite chain of arcs with a finite total length. Does that surprise you, and can you sanity-check it a different way?</div></div>
+
+<div class="turn candidate"><div class="head"><span class="sp">Junyoung</span><span class="role">candidate</span></div>
+<div class="txt">It shouldn't be surprising once I see the radii are geometric — the lengths shrink geometrically too, and a geometric series with ratio less than \(1\) converges, so of course the total is finite. As a sanity check: the first arc alone already has length \(\pi r_1=\pi\), and every arc after that is strictly smaller, so the total being \(2\pi\) — roughly double the first arc — feels the right order of magnitude, not absurdly large or suspiciously small.</div></div>
+
+<div class="note"><b>Why the interviewer asks for a sanity check.</b> Getting \(2\pi\) from a clean calculation is good, but interviewers specifically probe whether you have a feel for *why* an infinite process gives a finite, reasonable answer — geometric decay of the radii is the intuition that makes the convergence obvious before you even sum the series.</div>
+
+</main>
+
+<div class="kp" style="margin-top:20px"><div class="bt">Debrief — Question 2</div>
+<ol>
+<li>Can you recognise \(y=\pm\sqrt{r^2-(x-c)^2}\) as a circle instantly, and read off the centre and radius by matching coefficients?</li>
+<li>Do you check that a given domain restriction actually equals the natural domain, rather than assuming the semicircle claim without verifying it?</li>
+<li>Can you interpret an alternating sign \((-1)^{n+1}\) geometrically (upper/lower half) rather than just carrying it as algebra?</li>
+<li>Can you convert "sum of shrinking arc lengths" into a geometric series and evaluate it with \(a/(1-r)\)?</li>
+<li>Do you sanity-check a surprising result (infinitely many arcs, finite total length) using the geometric-decay intuition, instead of just trusting the algebra?</li>
+</ol>
+</div>
+
+<h2 class="qh" id="eng" style="margin-top:56px">English study &middot; <span class="kr" style="font-size:18px">면접 영어 학습</span></h2>
+<div class="box"><div class="bt">How to use this section</div>
+<p class="kr">위 두 문제를 <b>소리 내어 영어로</b> 설명하는 연습을 위한 어휘·표현·낭독 자료다. 인터뷰에서는 결과보다 <b>추론 과정을 영어로 서술하는 능력</b>이 평가 대상이므로, 아래 표현을 먼저 익히고 candidate 대사를 소리 내어 3회씩 읽어본다.</p></div>
+
+<h3 class="sub" style="font-size:18px;color:var(--accent);margin:26px 0 8px">A. Key vocabulary from these two problems</h3>
+<div class="tblwrap"><table class="gloss">
+<thead><tr><th>English</th><th>IPA</th><th>강세</th><th class="kr">뜻</th></tr></thead>
+<tbody>
+<tr><td class="en">functional equation</td><td class="ipa">/ˈfʌŋkʃənəl ɪˈkweɪʒən/</td><td class="stress"><b>FUNK</b>·shun·ul i·<b>KWAY</b>·zhun</td><td class="kr">함수방정식</td></tr>
+<tr><td class="en">symmetric about (a line)</td><td class="ipa">/sɪˈmɛtrɪk/</td><td class="stress">si·<b>MET</b>·rik</td><td class="kr">(직선)에 대해 대칭이다</td></tr>
+<tr><td class="en">an even function</td><td class="ipa">/ˈiːvən/</td><td class="stress"><b>EE</b>·vun</td><td class="kr">우함수</td></tr>
+<tr><td class="en">periodic, period</td><td class="ipa">/ˌpɪəriˈɒdɪk/, /ˈpɪəriəd/</td><td class="stress">pi·uh·ri·<b>OD</b>·ik</td><td class="kr">주기함수, 주기</td></tr>
+<tr><td class="en">a triangle wave</td><td class="ipa">/ˈtraɪæŋɡəl weɪv/</td><td class="stress"><b>TRY</b>·ang·gul wayv</td><td class="kr">삼각파(지그재그 그래프)</td></tr>
+<tr><td class="en">a monotonic function</td><td class="ipa">/ˌmɒnəˈtɒnɪk/</td><td class="stress">mon·uh·<b>TON</b>·ik</td><td class="kr">단조함수(증가 또는 감소만)</td></tr>
+<tr><td class="en">an intersection / to intersect</td><td class="ipa">/ˌɪntəˈsɛkʃən/</td><td class="stress">in·tuh·<b>SEK</b>·shun</td><td class="kr">교점 / 교차하다</td></tr>
+<tr><td class="en">a breakpoint</td><td class="ipa">/ˈbreɪkpɔɪnt/</td><td class="stress"><b>BRAYK</b>·point</td><td class="kr">(구간) 경계점</td></tr>
+<tr><td class="en">a semicircle</td><td class="ipa">/ˈsɛmiˌsɜːkəl/</td><td class="stress"><b>SEM</b>·i·sur·kul</td><td class="kr">반원</td></tr>
+<tr><td class="en">radius, centre</td><td class="ipa">/ˈreɪdiəs/, /ˈsɛntər/</td><td class="stress"><b>RAY</b>·di·us, <b>SEN</b>·tuh</td><td class="kr">반지름, 중심</td></tr>
+<tr><td class="en">arc length</td><td class="ipa">/ɑːk lɛŋθ/</td><td class="stress">ark length</td><td class="kr">호의 길이</td></tr>
+<tr><td class="en">a geometric series</td><td class="ipa">/ˌdʒiːəˈmɛtrɪk ˈsɪəriːz/</td><td class="stress">jee·uh·<b>MET</b>·rik <b>SEER</b>·eez</td><td class="kr">등비급수</td></tr>
+<tr><td class="en">common ratio</td><td class="ipa">/ˈkɒmən ˈreɪʃiəʊ/</td><td class="stress"><b>KOM</b>·un <b>RAY</b>·shi·oh</td><td class="kr">공비</td></tr>
+<tr><td class="en">to converge / convergent</td><td class="ipa">/kənˈvɜːdʒ/</td><td class="stress">kun·<b>VURJ</b></td><td class="kr">수렴하다 / 수렴하는</td></tr>
+<tr><td class="en">to telescope (into a point)</td><td class="ipa">/ˈtɛlɪskəʊp/</td><td class="stress"><b>TEL</b>·i·skohp</td><td class="kr">(점점 줄어들며) 한 점으로 모여들다</td></tr>
+<tr><td class="en">to alternate</td><td class="ipa">/ˈɔːltəneɪt/</td><td class="stress"><b>AWL</b>·tuh·nayt</td><td class="kr">번갈아 나타나다</td></tr>
+<tr><td class="en">a sanity check</td><td class="ipa">/ˈsænɪti tʃɛk/</td><td class="stress"><b>SAN</b>·i·ti check</td><td class="kr">타당성 검토(값이 말이 되는지 확인)</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub" style="font-size:18px;color:var(--accent);margin:26px 0 8px">B. Sentence starters for narrating a proof</h3>
+<p class="kr" style="margin:0 0 10px">인터뷰관은 답보다 <b>서술 과정</b>을 본다. 매 단계 어떻게 말을 열지 미리 정해두면 멈추지 않고 이어갈 수 있다.</p>
+<div class="tblwrap"><table class="gloss">
+<thead><tr><th>Purpose</th><th>Phrase</th><th class="kr">쓰임</th></tr></thead>
+<tbody>
+<tr><td>state your plan</td><td class="en">"Let me first turn this condition into a geometric statement."</td><td class="kr">본격 계산 전, 방향을 먼저 말로 정리</td></tr>
+<tr><td>substitute cleanly</td><td class="en">"Let \(u=x-1\), so that…"</td><td class="kr">치환 시작을 명확히 선언</td></tr>
+<tr><td>state a derived fact</td><td class="en">"That tells me \(f\) is even." / "So \(f\) is periodic with period 2."</td><td class="kr">유도된 성질을 단정적으로 진술</td></tr>
+<tr><td>propose, then verify</td><td class="en">"I'd expect… — let me check that directly."</td><td class="kr">직관을 먼저 말하고, 반드시 검증으로 이어감(추측만으로 끝내지 않기)</td></tr>
+<tr><td>link steps</td><td class="en">"This gives…" / "It follows that…" / "Comparing coefficients,…"</td><td class="kr">"so"만 반복하지 말고 접속어를 바꿔가며 사용</td></tr>
+<tr><td>flag a boundary case</td><td class="en">"I should double-check the endpoint here."</td><td class="kr">경계값 확인을 빠뜨리지 않고 명시</td></tr>
+<tr><td>sanity-check a result</td><td class="en">"Does that answer feel reasonable? Let me sanity-check it another way."</td><td class="kr">최종 답을 직관적으로 재검토</td></tr>
+<tr><td>conclude</td><td class="en">"So the answer is…"</td><td class="kr">결론은 짧고 명확하게</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub" style="font-size:18px;color:var(--accent);margin:26px 0 8px">C. Reading the key formulas aloud</h3>
+<div class="tblwrap"><table class="gloss">
+<thead><tr><th>Symbol</th><th>Say it as</th></tr></thead>
+<tbody>
+<tr><td class="en">\(f(1-x)=f(1+x)\)</td><td>"\(f\) of one minus \(x\) equals \(f\) of one plus \(x\)" — then immediately name it: "so \(f\) is symmetric about \(x\) equals one"</td></tr>
+<tr><td class="en">\(r^2-(x-c)^2\)</td><td>"\(r\) squared minus, \(x\) minus \(c\), all squared"</td></tr>
+<tr><td class="en">\(2^{1-n}\)</td><td>"two to the power one minus \(n\)"</td></tr>
+<tr><td class="en">\(\sum_{n=1}^{\infty}2^{1-n}\)</td><td>"the sum from \(n\) equals one to infinity of two to the power one minus \(n\)"</td></tr>
+<tr><td class="en">\(\dfrac{a}{1-r}\)</td><td>"\(a\) over, one minus \(r\)" — "the sum-to-infinity formula"</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="sub" style="font-size:18px;color:var(--accent);margin:26px 0 8px">D. Model script — read this aloud, then without looking</h3>
+<div class="script">
+<p><span class="n">1.</span> "First, I'll translate the two functional equations into geometric statements: \(f(1-x)=f(1+x)\) means the graph is symmetric about the line \(x=1\), and after substituting \(u=x-1\) into the other equation, I get \(f(u)=f(-u)\), so \(f\) is even."</p>
+<p><span class="n">2.</span> "Composing a symmetry about \(x=0\) with a symmetry about \(x=1\) should give a translation by twice the gap, so I'd expect period \(2\) — and checking directly, \(f(x+2)=f(-x)=f(x)\), which confirms it."</p>
+<p><span class="n">3.</span> "So the graph is a triangle wave: it rises linearly from \(0\) to \(3\) on \([2k,2k+1]\) and falls back to \(0\) on \([2k+1,2k+2]\), for every integer \(k\)."</p>
+<p><span class="n">4.</span> "Since the line has slope \(1/3\) and each piece of the wave has slope \(\pm3\), their difference is strictly monotonic on every piece, so there is at most one intersection per piece."</p>
+<p><span class="n">5.</span> "Checking the sign of \(f(x)-x/3+1\) at every integer from \(3\) to \(12\) shows it changes sign on all nine consecutive intervals, and there are no solutions outside that range — so the total is nine solutions."</p>
+<p><span class="n">6.</span> "For the second problem, matching \(2^{2-2n}-(x-c_n)^2\) against \(r^2-(x-c)^2\) identifies each piece as a semicircle of radius \(2^{1-n}\), alternating above and below the axis."</p>
+<p><span class="n">7.</span> "The total length is the sum of the semicircle lengths, \(\pi\sum_{n=1}^{\infty}2^{1-n}\), and since that's a geometric series with first term one and ratio one half, the sum is two — giving a total length of \(2\pi\)."</p>
+</div>
+<p class="kr" style="margin:6px 0 0;color:var(--muted);font-size:14.5px"><b>연습법:</b> ① 소리 내어 한 문장씩 읽기 → ② 화면 가리고 도표(그래프)만 보고 말하기 → ③ 아무것도 안 보고 처음부터 끝까지 설명. 연결어(so / this gives / it follows that)를 의식적으로 바꿔가며 사용.</p>
+
+<h3 class="sub" style="font-size:18px;color:var(--accent);margin:26px 0 8px">E. Common slips to watch for</h3>
+<div class="rank"><ol>
+<li><b>"same with"</b> is wrong — say <b>"the same as"</b> ("the argument is the same as before").</li>
+<li>Don't drop the article before a countable singular noun: <b>"an even function"</b>, not "even function"; <b>"a geometric series"</b>, not "geometric series".</li>
+<li><b>integral</b> (the object, \(\int f\,dx\)) vs. <b>integration</b> (the process) — don't confuse them, though this pair of problems is mostly algebra/geometry, not calculus.</li>
+<li>Don't chain everything with "so… so… so…" — rotate through <b>this gives / it follows that / therefore / hence</b>.</li>
+<li>If you lose the thread mid-sentence, pause and restate the full clause rather than trailing off — a complete, slightly slower sentence reads far better than an unfinished one.</li>
+</ol></div>
+
+<footer>iWork Math Academy · Director Sang-Yeol Lee · 2026. A simulated practice script, not a transcript of a real interview. Companion English study section for Oxford interview preparation.</footer>
+</div>
+</body></html>

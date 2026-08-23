@@ -2,82 +2,146 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>iWork 수학 — 경시 해설·채점 리포트</title>
-<meta name="description" content="아이워크수학 학생들의 수학 경시대회(HMMT 등) 풀이 해설과 채점 리포트 모음. 영어·한글 단계별 해설 + 심화.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<title>아이워크수학 — 자료실</title>
+<meta name="description" content="아이워크수학 수업 소개, 지도 사례, 학생별 학습 리포트와 경시대회 해설 모음.">
 <style>
 :root{
-  --ink:#1a1a1a; --muted:#6b665f; --paper:#faf9f7; --header:#2b3a42; --accent:#2b6cb0;
-  --ok:#2f7a55; --okbg:#eef3ef; --part:#b06a2b; --partbg:#f5eee2; --wrong:#a4472f; --line:#e7e1d7;
+  --ink:#15171c; --ink-2:#3d424c; --ink-3:#6b7280;
+  --line:#d9dce2; --line-2:#eceef1; --paper:#fdfdfe; --accent:#1f4fd8;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ink:#eceef2; --ink-2:#b8bec9; --ink-3:#868d99;
+    --line:#2b2f37; --line-2:#1f232a; --paper:#0f1115; --accent:#8fabff;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#eceef2; --ink-2:#b8bec9; --ink-3:#868d99;
+  --line:#2b2f37; --line-2:#1f232a; --paper:#0f1115; --accent:#8fabff;
 }
 *{box-sizing:border-box}
-@font-face{font-family:'MaruBuri';src:local('MaruBuri'),local('MaruBuri-Regular');font-weight:400}
-@font-face{font-family:'MaruBuri';src:local('MaruBuri SemiBold'),local('MaruBuri-SemiBold');font-weight:600}
-@font-face{font-family:'MaruBuri';src:local('MaruBuri Bold'),local('MaruBuri-Bold');font-weight:700}
-body{font-family:'MaruBuri','Noto Serif KR','Apple SD Gothic Neo',serif; color:var(--ink);
-  background:var(--paper); margin:0; line-height:1.8; font-size:18px}
-header.top{background:var(--header); color:#fff; padding:34px 22px 28px}
-header.top .inner{max-width:1100px; margin:0 auto}
-header.top h1{margin:0 0 6px; font-size:34px; font-weight:700; letter-spacing:-.3px}
-header.top .sub{font-size:17px; opacity:.9}
-.wrap{max-width:1100px; margin:0 auto; padding:8px 22px 80px}
-.intro{font-size:17px; color:var(--muted); margin:22px 0 8px}
-.grouph{font-size:22px; font-weight:700; color:var(--header); margin:34px 0 6px;
-  padding-bottom:8px; border-bottom:2px solid var(--line)}
-.cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:18px; margin-top:18px}
-.card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 24px;
-  display:flex; flex-direction:column; gap:6px}
-.card .exam{font-size:20px; font-weight:700; color:var(--header)}
-.card .meta{font-size:15px; color:var(--muted)}
-.badge{align-self:flex-start; margin:6px 0 2px; padding:5px 16px; border-radius:24px;
-  font-weight:700; font-size:15px; background:var(--okbg); color:var(--ok)}
-.links{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-.btn{text-decoration:none; font-weight:600; font-size:16px; padding:9px 18px; border-radius:9px;
-  background:var(--accent); color:#fff; transition:.15s}
-.btn:hover{background:var(--header)}
-.btn.ghost{background:#eef3fb; color:var(--accent)}
-footer{max-width:1100px; margin:30px auto 0; padding:20px 22px; color:var(--muted); font-size:15px;
-  border-top:1px solid var(--line); text-align:center}
-footer a{color:var(--accent)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:'Inter','Pretendard Variable','Pretendard',-apple-system,
+              BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  font-size:18px; line-height:1.75; letter-spacing:-.003em;
+  -webkit-font-smoothing:antialiased; font-variant-numeric:tabular-nums;
+}
+a{color:var(--accent); text-decoration:none}
+a:hover{text-decoration:underline; text-underline-offset:3px}
+.top-note{
+  border-bottom:1px solid var(--line); color:var(--ink-3);
+  font-size:14px; letter-spacing:.06em; padding:12px 0;
+}
+.top-note .wrap{padding-top:0; padding-bottom:0}
+.wrap{max-width:820px; margin:0 auto; padding:0 32px}
+@media (max-width:640px){.wrap{padding:0 20px}}
+header.hero{padding:76px 0 40px; border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-size:14px; letter-spacing:.11em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:600; margin-bottom:20px;
+}
+h1{font-size:clamp(32px,5.2vw,50px); line-height:1.08; letter-spacing:-.028em;
+   font-weight:600; margin:0 0 20px; max-width:18ch}
+.dek{font-size:19px; line-height:1.6; color:var(--ink-2); margin:0; max-width:54ch}
+section{padding:56px 0 4px}
+h2{font-size:24px; font-weight:600; letter-spacing:-.018em; margin:0 0 6px}
+.note{font-size:16px; color:var(--ink-3); margin:0 0 26px; max-width:58ch}
+ul.items{list-style:none; margin:0; padding:0}
+ul.items li{border-bottom:1px solid var(--line-2); display:flex; align-items:baseline; gap:12px}
+ul.items li:first-child{border-top:1px solid var(--ink)}
+ul.items li > a.row{
+  flex:1 1 auto; display:grid; grid-template-columns:1fr; gap:3px;
+  padding:18px 0; color:var(--ink);
+}
+ul.items li > a.row:hover{text-decoration:none}
+ul.items li > a.row:hover .t{text-decoration:underline; text-underline-offset:4px}
+.t{font-weight:600; font-size:19px; letter-spacing:-.012em}
+.d{font-size:16px; color:var(--ink-3)}
+a.aux{font-size:15px; white-space:nowrap; color:var(--ink-3)}
+footer{
+  margin-top:64px; padding:28px 0 90px;
+  border-top:1px solid var(--line); font-size:16px; color:var(--ink-3);
+}
 </style>
 </head>
 <body>
-<header class="top"><div class="inner">
-  <h1>iWork 수학 · 경시 해설</h1>
-  <div class="sub">아이워크수학 · iWork Math — 학생 풀이 채점 리포트 &amp; 단계별 해설</div>
-</div></header>
+
+<div class="top-note"><div class="wrap">비공개 자료실 — 링크를 아는 사람만 열람 · 검색엔진 노출 제외</div></div>
+
 <div class="wrap">
-  <p class="intro">학생들이 직접 푼 수학 경시대회 문제를 공식 정답 기준으로 채점하고, 영어·한글 단계별 풀이와 심화 해설을 함께 정리한 모음입니다.</p>
+  <header class="hero">
+    <div class="eyebrow">iWork Math</div>
+    <h1>아이워크수학 자료실</h1>
+    <p class="dek">수업 소개, 지도 사례, 학생별 학습 리포트와 경시대회 채점 해설을 모아둔 곳입니다.
+    필요한 자료의 링크를 학부모님·학생에게 개별로 전달합니다.</p>
+  </header>
 
-  <div class="grouph">HMMT November — General Round</div>
-  <div class="cards">
+  <section>
+    <h2>수업 소개</h2>
+    <p class="note">시험별 수업 안내문. 상담 때 전달하거나 다른 채널에 재활용합니다.</p>
+    <ul class="items">
+      <li><a class="row" href="아이워크/tmua.html"><span class="t">TMUA</span><span class="d">영국 대학 수학·경제·CS 계열 입시 수학시험</span></a></li>
+      <li><a class="row" href="아이워크/step.html"><span class="t">STEP</span><span class="d">케임브리지 수학과 지원 전용 시험</span></a></li>
+      <li><a class="row" href="아이워크/sat.html"><span class="t">SAT</span><span class="d">미국 대학 입시 표준화 시험</span></a></li>
+      <li><a class="row" href="아이워크/ap.html"><span class="t">AP</span><span class="d">대학 학점으로 인정되는 고교 심화과정</span></a></li>
+      <li><a class="row" href="아이워크/igcse.html"><span class="t">IGCSE</span><span class="d">국제학교 중등 과정의 기초 시험</span></a></li>
+    </ul>
+  </section>
 
-    <div class="card">
-      <div class="exam">HMMT November 2024 · General</div>
-      <div class="meta">학생: 유윤제 · 10문항</div>
-      <span class="badge">결과 8 / 10</span>
-      <div class="links">
-        <a class="btn" href="reports/hmmt-2024-general-yunje.html">해설 보기</a>
-        <a class="btn ghost" href="reports/hmmt-2024-general-yunje.pdf">PDF</a>
-      </div>
-    </div>
+  <section>
+    <h2>지도 사례</h2>
+    <p class="note">학부모님이 보내주신 실제 반응을 학생별로 정리한 초안. 이름은 이니셜로 가렸습니다.</p>
+    <ul class="items">
+      <li><a class="row" href="지도사례/m-청심국제중.html"><span class="t">M 학생 · 청심국제중</span><span class="d">기초 부족에서 고등 수학 전 과목 올A까지</span></a></li>
+      <li><a class="row" href="지도사례/mj-apis.html"><span class="t">MJ 학생 · APIS</span><span class="d">8학년에서 9학년 수학 만점까지</span></a></li>
+      <li><a class="row" href="지도사례/h-프랑스어학교.html"><span class="t">H 학생 · 프랑스어학교</span><span class="d">바칼로레아, 반 랭킹 경쟁 속 수학 준비</span></a></li>
+      <li><a class="row" href="지도사례/전체-학생-목록.html"><span class="t">전체 지도 학생 목록</span><span class="d">작업중 — 수업 기록 정리</span></a></li>
+    </ul>
+  </section>
 
-    <div class="card">
-      <div class="exam">HMMT November 2025 · General</div>
-      <div class="meta">학생: 유윤제 · 10문항</div>
-      <span class="badge">결과 8 / 10</span>
-      <div class="links">
-        <a class="btn" href="reports/hmmt-2025-general-yunje.html">해설 보기</a>
-      </div>
-    </div>
+  <section>
+    <h2>학습 리포트</h2>
+    <p class="note">학생별 진도·성취 보고서. 학부모님께 개별 링크로 전달합니다.</p>
+    <ul class="items">
+      <li><a class="row" href="reports/d867ee10/"><span class="t">최린지 학생</span><span class="d">학습현황 · 8월 Unit1 진도계획</span></a></li>
+      <li><a class="row" href="reports/d8edb7af/"><span class="t">유윤제 학생</span><span class="d">HMMT 채점 리포트 모음</span></a></li>
+    </ul>
+  </section>
 
-  </div>
+  <section>
+    <h2>경시대회 해설</h2>
+    <p class="note">학생 풀이를 공식 정답 기준으로 채점하고 영어·한글 단계별 해설을 붙인 리포트.</p>
+    <ul class="items">
+      <li>
+        <a class="row" href="reports/hmmt-2024-general-yunje.html"><span class="t">HMMT November 2024 · General</span><span class="d">유윤제 · 8/10</span></a>
+        <a class="aux" href="reports/hmmt-2024-general-yunje.pdf">PDF</a>
+      </li>
+      <li><a class="row" href="reports/hmmt-2025-general-yunje.html"><span class="t">HMMT November 2025 · General</span><span class="d">유윤제 · 8/10</span></a></li>
+      <li><a class="row" href="reports/d8edb7af/hmmt-2018nov-general/"><span class="t">HMMT November 2018 · General</span><span class="d">유윤제</span></a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>학생 전용 학습 도구</h2>
+    <p class="note">브라우저에서 바로 푸는 자동 채점 도구. 진도는 학생 기기에 저장됩니다.</p>
+    <ul class="items">
+      <li><a class="row" href="students/김규민/"><span class="t">김규민 · SAT 단어 테스트</span><span class="d">Word Smart E · 79단어 · 자동 채점 + 오답노트</span></a></li>
+      <li><a class="row" href="students/배준영/TMUA_논리명제_workbook_2607121051.html"><span class="t">배준영 · TMUA 논리·명제 워크북</span><span class="d">문제 + 해설</span></a></li>
+      <li><a class="row" href="students/배준영/periodic_function_series_mock_interview_en_v1.html"><span class="t">배준영 · 주기함수·급수 모의면접</span><span class="d">영어 인터뷰 대본</span></a></li>
+      <li><a class="row" href="students/유윤제/HMMT_Nov2023_General_채점_2606281950.html"><span class="t">유윤제 · HMMT 2023 채점</span><span class="d">General Round</span></a></li>
+      <li><a class="row" href="students/유윤제/HMMT_Nov2022_General_채점_2607051000.html"><span class="t">유윤제 · HMMT 2022 채점</span><span class="d">General Round</span></a></li>
+      <li><a class="row" href="students/유윤제/HMMT_Nov2021_General_채점_2607121004.html"><span class="t">유윤제 · HMMT 2021 채점</span><span class="d">General Round</span></a></li>
+    </ul>
+  </section>
+
+  <footer>
+    아이워크수학 · iWork Math · 원장 이상열<br>
+    경시 정답은 각 대회 공식 아카이브 기준으로 검증 · 무단복제 금지
+  </footer>
 </div>
-<footer>
-  아이워크수학 · iWork Math · 원장 이상열 · 정답은 <a href="https://hmmt-archive.s3.amazonaws.com/" target="_blank" rel="noopener">HMMT 공식 아카이브</a> 기준 검증 · 무단복제 금지
-</footer>
+
 </body>
 </html>

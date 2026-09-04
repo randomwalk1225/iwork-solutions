@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>유윤제 · 2024 BMO1 채점</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},chtml:{scale:1.05}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+:root{
+  --ink:#1a1a1a; --muted:#6b665f; --paper:#faf9f7; --header:#2b3a42; --accent:#2b6cb0;
+  --ok:#2f7a55; --okbg:#eef3ef;
+  --part:#b06a2b; --partbg:#f5eee2;
+  --wrong:#a4472f; --wrongbg:#f6efea;
+  --blank:#6b6560; --blankbg:#efedea;
+  --line:#e7e1d7;
+  --fs-base:18px; --fs-meta:16px;
+}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri'),local('MaruBuri-Regular');font-weight:400}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri SemiBold'),local('MaruBuri-SemiBold');font-weight:600}
+@font-face{font-family:'MaruBuri';src:local('MaruBuri Bold'),local('MaruBuri-Bold');font-weight:700}
+*{box-sizing:border-box}
+body{font-family:'MaruBuri','Noto Serif KR','Apple SD Gothic Neo',serif;
+  font-size:var(--fs-base); line-height:1.85; color:var(--ink); margin:0; background:var(--paper)}
+.wrap{max-width:1080px; margin:0 auto; padding:0 22px 90px}
+a{color:var(--accent)}
+
+.top{background:var(--header); color:#fff; padding:28px 0 24px}
+.top .wrap{padding-bottom:0}
+.top .kicker{font-size:var(--fs-meta); color:#c8d3d9; letter-spacing:.04em}
+.top .n{font-size:32px; font-weight:700; line-height:1.25; margin:6px 0 4px}
+.top .sub{color:#c8d3d9; font-size:16px}
+.top .meta{margin-top:14px; font-size:var(--fs-meta); color:#dce4e8;
+  display:flex; flex-wrap:wrap; gap:6px 26px}
+.top .meta b{color:#fff; font-weight:600}
+.printbtn{background:transparent; color:#fff; border:1px solid #7f939d; border-radius:20px;
+  padding:4px 15px; font-size:var(--fs-meta); cursor:pointer; font-family:inherit}
+.printbtn:hover{background:#3a4c56}
+
+.stats{display:flex; flex-wrap:wrap; background:#fff; border:1px solid var(--line);
+  border-radius:10px; margin:24px 0 8px; overflow:hidden}
+.st{flex:1 1 150px; padding:16px 12px; text-align:center; border-right:1px solid var(--line)}
+.st:last-child{border-right:none}
+.stn{font-size:27px; font-weight:700; color:var(--header)}
+.stl{font-size:var(--fs-meta); color:var(--muted); margin-top:2px}
+
+h2.sub{font-size:17px; font-weight:700; color:var(--accent); margin:26px 0 8px}
+h2.sub.err{color:var(--wrong)}
+.twocol{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:8px 26px}
+table.sum{width:100%; border-collapse:collapse; font-size:16px; background:#fff}
+table.sum th,table.sum td{border:1px solid var(--line); padding:6px 10px; text-align:left; vertical-align:top}
+table.sum th{background:#f1f4f2; font-weight:600; font-size:var(--fs-meta); color:var(--muted)}
+table.sum.err th{background:#f8f1ee}
+table.sum td.num,table.sum th.num{text-align:right}
+table.sum a{text-decoration:none; font-weight:700}
+.v-ok{color:var(--ok)} .v-part{color:var(--part)} .v-wrong{color:var(--wrong)} .v-blank{color:var(--blank)}
+
+.notes{background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:16px 22px; margin:22px 0; font-size:16px}
+.notes h3{margin:0 0 6px; font-size:16px; color:var(--accent)}
+.notes ul{margin:0; padding-left:1.2em}
+.notes li{margin-bottom:6px}
+
+.card{background:#fff; border:1px solid var(--line); border-radius:10px;
+  padding:20px 24px; margin:18px 0; scroll-margin-top:16px}
+.chead{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:12px;
+  padding-bottom:10px; border-bottom:1px solid var(--line)}
+.cleft{display:flex; align-items:center; gap:10px; flex-wrap:wrap; flex:1}
+.qn{font-size:20px; font-weight:700}
+.qscore{font-size:var(--fs-meta); color:var(--muted)}
+.area{color:var(--muted); font-size:var(--fs-meta)}
+.chip{font-size:16px; font-weight:700; border-radius:20px; padding:2px 11px}
+.chip.ok{background:var(--okbg); color:var(--ok)}
+.chip.part{background:var(--partbg); color:var(--part)}
+.chip.wrong{background:var(--wrongbg); color:var(--wrong)}
+.chip.blank{background:var(--blankbg); color:var(--blank)}
+.ans{display:flex; gap:8px; flex-wrap:wrap}
+.abox{display:inline-flex; align-items:baseline; gap:7px; border:1px solid var(--line);
+  border-radius:7px; padding:3px 11px; font-size:16px; background:#fbfaf8}
+.abox .k{font-size:16px; color:var(--muted)}
+.abox.stu.ok{background:var(--okbg)} .abox.stu.part{background:var(--partbg)}
+.abox.stu.wrong{background:var(--wrongbg)} .abox.stu.blank{background:var(--blankbg)}
+
+.blabel{font-size:var(--fs-meta); font-weight:700; color:var(--muted); margin:14px 0 4px;
+  letter-spacing:.02em}
+.blabel:first-of-type{margin-top:0}
+.bbody.work{background:#fbfaf8; border:1px solid var(--line); border-radius:8px; padding:12px 16px}
+.bbody.work .wpart{margin-bottom:9px}
+.bbody.work .wpart:last-child{margin-bottom:0}
+.wlabel{font-weight:700; margin-right:5px}
+.wsketch{font-size:16px; color:var(--muted); border-top:1px dotted var(--line);
+  margin-top:6px; padding-top:6px}
+.wnone{color:var(--muted); font-style:italic}
+
+.banner{border-radius:8px; padding:10px 16px; margin:14px 0 0; font-size:16px}
+.banner.ok{background:var(--okbg); color:#1f4d38} .banner.ok b{color:var(--ok)}
+.banner.part{background:var(--partbg); color:#5d3a12} .banner.part b{color:var(--part)}
+.banner.wrong{background:var(--wrongbg); color:#5f2718} .banner.wrong b{color:var(--wrong)}
+.banner.blank{background:var(--blankbg); color:#4a453f} .banner.blank b{color:var(--blank)}
+
+.fixbox{background:#fbfaf8; border:1px solid var(--line); border-radius:8px;
+  padding:14px 18px; margin:12px 0 0; font-size:16px}
+.fixtitle{font-size:var(--fs-meta); font-weight:700; color:var(--wrong); margin-bottom:6px}
+.fixbox p{margin:0 0 8px} .fixbox p:last-child{margin-bottom:0}
+.say{background:#fff; border:1px solid var(--line); border-radius:6px; padding:10px 14px; margin:8px 0}
+
+details.sol{margin-top:14px}
+details.sol summary{cursor:pointer; color:var(--accent); font-weight:700; font-size:16px}
+ol.steps{margin:10px 0 0; padding-left:1.3em}
+ol.steps li{margin-bottom:7px}
+
+.concept{background:#eef3f8; border-radius:8px; padding:14px 18px; margin-top:14px; font-size:16px}
+.ctitle{font-weight:700; color:var(--accent); margin-bottom:5px}
+.concept ul{margin:0; padding-left:1.2em} .concept li{margin-bottom:4px}
+
+figure{margin:12px 0}
+figure img,.bbody img,.scan img{max-width:100%; height:auto; display:block;
+  border:1px solid var(--line); border-radius:6px}
+figcaption{font-size:var(--fs-meta); color:var(--muted); margin-top:5px}
+.scan{margin:14px 0}
+
+ol.choices{list-style:none; margin:10px 0 0; padding:0; display:grid; gap:3px}
+ol.choices li{display:flex; gap:10px; align-items:baseline; font-size:16px; color:var(--muted)}
+ol.choices li.ok{color:var(--ink); font-weight:600}
+.chl{display:inline-block; width:1.5em; font-weight:700}
+li.ok .chl,.chmark{color:var(--ok)}
+
+/* 줄기와 잎 그림 — 줄마다 줄기 하나, 자릿수를 맞춰 세로로 세운다.
+   흘려 쓰면 그림이 아니라 문단이 된다 (2026-08-31 원장 지적). */
+pre.stemplot{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  font-size:16px; line-height:1.65; background:#fbfaf8; border:1px solid var(--line);
+  border-radius:8px; padding:13px 18px; margin:10px 0; overflow-x:auto}
+pre.stemplot b{font-weight:700; color:var(--wrong)}
+.stemcap{font-size:16px; color:var(--muted); margin:-4px 0 10px}
+
+table.data{border-collapse:collapse; margin:10px 0; font-size:16px}
+table.data th,table.data td{border-bottom:1px solid var(--line); padding:5px 16px 5px 0; text-align:left}
+table.data th{font-size:var(--fs-meta); color:var(--muted); font-weight:600}
+table.data td.num,table.data th.num{text-align:right; padding-right:22px}
+
+.langnav{position:sticky; top:0; z-index:10; background:var(--paper);
+  border-bottom:1px solid var(--line); padding:9px 0; text-align:center}
+.langnav a{color:var(--accent); font-weight:700; font-size:var(--fs-meta);
+  text-decoration:none; margin:0 18px}
+.lang-h{font-size:22px; font-weight:700; color:var(--header); margin:34px 0 6px;
+  padding-bottom:8px; border-bottom:2px solid var(--header)}
+
+footer{margin-top:44px; padding-top:14px; border-top:1px solid var(--line);
+  color:var(--muted); font-size:var(--fs-meta)}
+
+@page{size:A4; margin:14mm}
+@media print{
+  body{background:#fff}
+  .printbtn{display:none}
+  .langnav{display:none}
+  .lang-h{break-after:avoid}
+  #eng{break-after:page}
+  .card,.twocol,.notes{break-inside:avoid}
+  .top{background:#fff; color:var(--ink); border-bottom:2px solid var(--ink)}
+  .top .kicker,.top .sub,.top .meta{color:var(--muted)}
+  .top .meta b{color:var(--ink)}
+  details.sol{display:block} details.sol summary{display:none}
+  ol.steps{display:block}
+}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <div class="kicker">British Mathematical Olympiad Round 1 · 채점 리포트 · 2026-08-31</div>
+  <div class="n">2024 BMO1 &mdash; 자가 응시 답안 채점</div>
+  <div class="sub">6문항 중 4문항 제출(1 &middot; 2 &middot; 4 &middot; 5) · 3 &middot; 6번 미제출</div>
+  <div class="meta"><div><b>학생</b> 유윤제 (베트남 RGS Vietnam)</div><div><b>응시</b> 2026-08-31 자가 응시 · 3시간 30분 계측 (학부모 전언)</div><div><b>시험</b> UKMT BMO1, 2024-11-20 시행 · 6문항 · 3시간 30분 · 문항당 10점</div><div><b>정답 출처</b> UKMT 공식 채점자 리포트 (2024)</div><div><b>추정 득점</b> <b>12 / 60</b> &mdash; 제출 답안을 UKMT 공식 채점 기준에 대어 매긴 추정</div><div><b>담당</b> 원장 이상열</div><button class="printbtn" onclick="window.print()">인쇄 / PDF 저장</button></div>
+</div></div>
+<nav class="langnav"><a href="#eng">&#9654; English Report</a><a href="#kor">&#9654; 한글 리포트</a></nav>
+<div class="wrap">
+<section id="eng"><h2 class="lang-h">English Report</h2><div class="notes"><h3>Overview</h3><ul>
+<li><b>Attempted:</b> Questions 1, 2, 4 and 5. Questions 3 and 6 were not attempted (the student
+reported not knowing how to approach them). Estimated score <b>12 / 60</b>, marked against the official
+UKMT Markers&rsquo; Report (10 marks per question).</li>
+<li><b>The sentences in all four attempted questions match the model solutions in the official
+Markers&rsquo; Report</b> &mdash; down to the numbers in the circle diagrams (Q1) and the phrase
+&ldquo;In the first of these case&rdquo; (Q5).</li>
+<li><b>The same element is missing in all four: the linking argument that carries the marks.</b>
+The impossibility proof (Q1), the equal-sum condition and the \(\tfrac{n(n+1)}{4}\) step (Q2), the
+justification of the angle equalities (Q4), and the sentence narrowing four factors to two (Q5).
+Conclusions and answers are present; the reasoning between them is not.</li>
+</ul></div>
+<section class="card part" id="eq1">
+  <div class="chead">
+    <div class="cleft"><span class="qn">1</span> <span class="chip part">Partial credit</span></div>
+    <span class="qscore">3 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>We say that the positive integer \(n \ge 3\) is <b>happy</b> if it is possible to
+arrange \(n\) different positive integers in a circle such that two conditions are satisfied:</p>
+<p>(a) If integers \(u\) and \(v\) in the circle are neighbours, then either \(u\) divides \(v\)
+or \(v\) divides \(u\);</p>
+<p>(b) If different integers \(u\) and \(v\) are in the circle but are not neighbours, then neither
+divides the other.</p>
+<p>Determine, with proof, which positive integers \(n\) in the range \(3 \le n \le 12\) are happy.</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart">&ldquo;The case n=3 is unusual because every number is adjacent to every
+other, so Condition b does not need to be considered.<br>
+For even values of n&gt;4 we can show that n is happy by placing distinct primes in alternate spaces and
+placing the products of neighbouring primes between them as in the examples below.&rdquo;
+<div class="wsketch">Three circle diagrams &mdash; n=3: (1, 4, 2); n=6: (10, 2, 6, 3, 15, 5);
+n=8: (14, 2, 6, 3, 15, 5, 35, 7). No diagrams for n=10 or n=12.</div>
+&ldquo;Thus if n&gt;3 is odd, n is not happy. So the required are 3, 4, 6, 8, 10 and 12.&rdquo;</div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p><b>The final answer is correct:</b> 3, 4, 6, 8, 10 and 12.</p>
+<p><b>Missing 1 &mdash; the proof that odd \(n \gt 3\) is not happy.</b> Only the concluding
+sentence appears. The official argument: for consecutive numbers \(a, b, c\) round the circle,
+\(a \lt b \lt c\) would force \(a \mid b\) and \(b \mid c\), hence \(a \mid c\) &mdash;
+impossible, as \(a\) and \(c\) are not neighbours. So \(\lt\) and \(\gt\) signs must alternate
+round the circle, and an odd number of signs cannot alternate.</p>
+<p><b>Missing 2 &mdash; the special case \(n = 4\).</b> The construction used (distinct primes in
+alternate spaces) fails for \(n = 4\): with primes \(p_1, p_2\), both remaining numbers would equal
+\(p_1 p_2\). The official solution adapts it to \(p_1^2 p_2\) and \(p_1 p_2^2\), e.g. 2, 12, 3, 18.
+The circles for \(n = 10\) and \(n = 12\) are also absent.</p>
+<p>From the markers&rsquo; comments: &ldquo;Others gave constructions for the happy numbers &hellip;
+and then said that since this construction doesn&rsquo;t work for the remaining odds that they are
+therefore not happy. This is also erroneous, as other constructions might be possible.&rdquo;</p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li>\(n = 3\) is unusual: every number is adjacent to every other, so condition (b) does not need to be considered &mdash; e.g. (1, 4, 2).</li><li>Even \(n \gt 4\): place distinct primes in alternate spaces and the products of neighbouring primes between them. \(n=6\): (10, 2, 6, 3, 15, 5); \(n=8\): (14, 2, 6, 3, 15, 5, 35, 7); \(n=10\): (22, 2, 6, 3, 15, 5, 35, 7, 77, 11); \(n=12\): (26, 2, 6, 3, 15, 5, 35, 7, 77, 11, 143, 13).</li><li>\(n = 4\): the construction above fails, so multiply the two composites by different numbers neither of which divides the other: 2, 12, 3, 18.</li><li>Odd \(n \gt 3\): for consecutive \(a, b, c\), an ordering \(a \lt b \lt c\) implies \(a \mid c\), contradicting condition (b); likewise \(a \gt b \gt c\). So \(\lt\) and \(\gt\) must alternate round the circle, which is impossible for an odd number of signs. Hence odd \(n \gt 3\) is not happy.</li><li>Answer: 3, 4, 6, 8, 10, 12.</li></ol></details>
+</section>
+<section class="card part" id="eq2">
+  <div class="chead">
+    <div class="cleft"><span class="qn">2</span> <span class="chip part">Partial credit</span></div>
+    <span class="qscore">3 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>A magician performs a trick with a deck of \(n\) cards that are numbered from 1
+to \(n\). The magician prepares for the trick by putting the cards in an order of her choosing. Then
+she challenges a member of the audience to write an integer on a board. The magician turns over the
+cards one by one, in their pre-arranged order. Every time the magician turns over a card, the audience
+member multiplies the number on the board by \(-1\), adds it to the number on the card, writes the
+result on the board, and erases the old number. The magician guarantees that, no matter which initial
+integer is chosen, the initial and final numbers will sum to 0.</p>
+<p>Determine for which natural numbers \(n\) the magician can perform the trick. You must both prove
+that the trick is possible for the numbers you claim, and prove that it is not possible for any other
+numbers.</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart">The board numbers expanded in sequence:
+<div class="wsketch">\(x\) &rarr; \(a_1-x\) &rarr; \(a_2-(a_1-x)=a_2-a_1+x\) &rarr; &hellip; &rarr;
+\(a_n-a_{n-1}+a_{n-2}-\cdots+(-1)^n x\)</div>
+&ldquo;When x is added to this final number the result must be zero. \(a_n+a_{n-2}+a_{n-4}=a_{n-1}+a_{n-3}\cdots\)
+So the trick can be performed if and only if n is odd and it is possible to divide the number into two sets,
+of size \(\frac{n-1}{2}\), \(\frac{n+1}{2}\) respectively.<br>
+For n=7 in the order 1, 3, 4, 5, 7, 6 makes the final &minus;x.<br>
+Thus the trick can be performed for all n = 4k+3&rdquo;</div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p><b>The final answer is correct:</b> \(n = 4k + 3\).</p>
+<p><b>Missing 1 &mdash; &ldquo;each of which has the same sum&rdquo;.</b> The submission stops at
+dividing \(1, 2, \dots, n\) into two sets of sizes \(\tfrac{n-1}{2}\) and \(\tfrac{n+1}{2}\).
+Size alone is no condition at all &mdash; any \(n\) can be divided that way. The official solution
+requires the two sets to have <b>equal sums</b>, and the next line depends on it.</p>
+<p><b>Missing 2 &mdash; deriving \(4k + 3\).</b> The common sum must be
+\(\tfrac12(1 + 2 + \cdots + n) = \tfrac{n(n+1)}{4}\), and for odd \(n\) this is an integer only
+if \(n + 1\) is divisible by 4. The submission states only the conclusion. From the markers&rsquo;
+comments: &ldquo;This step is not obvious and requires justification.&rdquo;</p>
+<p><b>Missing 3 &mdash; the construction.</b> The above is only the necessity half. For possibility:
+\(n = 3\) works with 1, 3, 2, and if \(n = m\) works then appending \(m+1, m+2, m+4, m+3\) makes
+\(n = m + 4\) work (the four added terms cancel), so induction covers all \(n = 4k + 3\).</p>
+<p><b>A transcription slip:</b> the \(n = 7\) order is written as 1, 3, 4, 5, 7, 6 &mdash; six cards;
+the 2 is missing. The official order 1, 3, 2, 4, 5, 7, 6 gives \((6-7+5-4) + (2-3+1-x) = -x\); as
+written, the result is not \(-x\).</p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li>With initial number \(x\) and cards \(a_1, \dots, a_n\) in turned order, the final number on the board is \(a_n - a_{n-1} + a_{n-2} - \cdots + (-1)^n x\).</li><li>Adding \(x\) must give zero, and \(x\) can be <b>any</b> integer, so \((-1)^n x + x = 0\): \(n\) is odd.</li><li>We also need \(a_n + a_{n-2} + \cdots = a_{n-1} + a_{n-3} + \cdots\) &mdash; that is, \(1, \dots, n\) must split into two sets of sizes \(\tfrac{n+1}{2}\) and \(\tfrac{n-1}{2}\), <b>each of which has the same sum</b>.</li><li>The common sum is \(\tfrac12(1 + 2 + \cdots + n) = \tfrac{n(n+1)}{4}\). Since \(n\) is odd, this is an integer only if \(4 \mid n + 1\): the trick is impossible unless \(n = 4k + 3\).</li><li>Possibility &mdash; \(n = 3\): the order 1, 3, 2 gives \(2 - 3 + 1 - x = -x\). \(n = 7\): 1, 3, 2, 4, 5, 7, 6. In general, if \(n = m\) works, append \(m+1, m+2, m+4, m+3\): the final number changes by \((m+3)-(m+4)+(m+2)-(m+1) = 0\). By induction the trick works for all \(n = 4k + 3\).</li></ol></details>
+</section>
+<section class="card blank" id="eq3">
+  <div class="chead">
+    <div class="cleft"><span class="qn">3</span> <span class="chip blank">Not attempted</span></div>
+    <span class="qscore">0 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>Rhian and Jack are playing a game in which initially the number \(10^6\) is
+written on a blackboard. If the current number on the board is \(n\), a move consists of choosing two
+different positive integers \(a, b\) such that \(n = ab\) and replacing \(n\) with \(|a - b|\).
+Rhian starts, then the players make moves alternately. A player loses if they are unable to move.</p>
+<p>Determine, with proof, which player has a winning strategy.</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart"><span class="wnone">Not submitted.</span></div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p>Not attempted (the student reported not knowing how to approach Questions 3 and 6).</p>
+<p>From the markers&rsquo; comments: &ldquo;Problem 3 (as well as problem 1) provided the annual
+reminder of the importance of trying small examples. Candidates who considered what happens when the
+game is played starting with 2, then 3, then 4 and so on generally spotted the importance of parity and
+many went on to solve the problem. Those who dived in with an initial value of one million often missed
+the point.&rdquo;</p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li>\(10^6\) is even, so <b>Rhian (the first player) has a winning strategy.</b></li><li>Rhian can always hand Jack an odd number: given even \(n\), take \(n = n \times 1\), and \(|n - 1|\) is odd.</li><li>Jack, holding an odd number, can only factorise it as odd \(\times\) odd (an odd number has no even factors), and the difference of two odd numbers is even &mdash; so Jack must always return an even number.</li><li>The board value strictly decreases (\(|a - b| \lt n\) whenever \(ab = n\)), so eventually Rhian hands Jack the number 1, which cannot be written as a product of two <i>different</i> positive integers. Jack cannot move and loses.</li></ol></details>
+</section>
+<section class="card part" id="eq4">
+  <div class="chead">
+    <div class="cleft"><span class="qn">4</span> <span class="chip part">Partial credit</span></div>
+    <span class="qscore">3 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>In the acute-angled triangle \(ABC\) we have \(AB \lt AC \lt BC\). The
+midpoint of \(BC\) is \(M\). There is a point \(P\) on the line segment \(AM\) such that
+\(AB = CP\), and \(\angle PAB = \angle BCP\). Prove that \(\angle CPB = 90^\circ\).</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart">&ldquo;Step 1: Introduce a new point which helps you use the given conditions<br>
+2: Use the new point and the given conditions to find some equal angles<br>
+3: Conclude that M is the centre of the circumcircle of CPB, \(\angle CPB = 90^\circ\)<br>
+4. Reflect P in the point M to get Q &nbsp; \(\angle QAB = \angle CPQ = \angle MCP\)<br>
+3. Now \(\triangle MCP\) is a isoceles, \(MB = MP = MC\)<br>
+4: This yields that M is the centre of the circle CPB with diameter BC and \(\angle CPB = 90^\circ\)
+since the angle in a semicircle is a right angle.&rdquo;</div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p><b>The skeleton of the proof is all there.</b> The first three lines are a plan; the
+actual proof begins at &ldquo;Reflect P in the point M to get Q&rdquo; &mdash; the construction (Step 1),
+the angle equalities \(\angle QAB = \angle CPQ = \angle MCP\) (the conclusions of Step 2), the
+isosceles triangle with \(MB = MP = MC\) (Step 3), and the diameter/semicircle conclusion (Step 4).
+This is the same route as the official solution.</p>
+<p><b>What is missing is the justification of the angle equalities.</b> They are asserted, not proved.
+The official route: the diagonals of \(BQCP\) bisect each other, so it is a parallelogram; then
+\(PC = BQ = AB\) makes \(\triangle ABQ\) isosceles with \(\angle QAB = \angle BQA\), and
+\(PC \parallel BQ\) gives \(\angle BQP = \angle CPQ = \angle MCP\). Without this paragraph,
+&ldquo;Now \(\triangle MCP\) is isosceles&rdquo; has no basis. The marks hinge on exactly this
+linking argument: the construction and the route are credited; the missing justification is not.</p>
+<p>The final line does name the theorem used (&ldquo;angle in a semicircle&rdquo;). The markers&rsquo;
+report notes that marks were lost where such theorems were used implicitly &mdash; this part is done
+as required.</p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li><b>Step 1</b> &mdash; Reflect \(P\) in the point \(M\) to get the point \(Q\).</li><li><b>Step 2</b> &mdash; The diagonals of \(BQCP\) bisect each other, so it is a parallelogram. We have \(PC = BQ = AB\), so \(\triangle ABQ\) is isosceles and \(\angle QAB = \angle BQA\). Since \(PC \parallel BQ\), \(\angle BQP = \angle CPQ = \angle MCP\).</li><li><b>Step 3</b> &mdash; Now \(\triangle MCP\) is isosceles, and we see that \(MB = MP = MC\).</li><li><b>Step 4</b> &mdash; This yields that \(M\) is the centre of the circle \(CPB\) with diameter \(BC\), and \(\angle CPB = 90^\circ\) since the angle in a semicircle is a right angle.</li><li><b>Alternative</b> &mdash; the Sine Rule on \(\triangle MAB\) and \(\triangle PMC\): \(\frac{BM}{\sin\angle MAB} = \frac{AB}{\sin\angle BMA} = \frac{PC}{\sin\angle PMC} = \frac{PM}{\sin\angle MCP}\) (the middle equality from \(AB = PC\) and \(\angle BMA + \angle PMC = 180^\circ\)). Since \(\angle MAB = \angle MCP\), \(BM = PM\), and the conclusion follows as above.</li></ol></details>
+</section>
+<section class="card part" id="eq5">
+  <div class="chead">
+    <div class="cleft"><span class="qn">5</span> <span class="chip part">Partial credit</span></div>
+    <span class="qscore">3 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>Let \(p\) be a prime number, and let \(n\) be the smallest positive integer,
+strictly greater than 1, for which \(n^6 - 1\) is divisible by \(p\). Prove that at least one of
+\((n+1)^6 - 1\) and \((n+2)^6 - 1\) is divisible by \(p\).</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart">&ldquo;We begin by noting that \(n^6-1 = (n^3)^2-1\)<br>
+\(n^6-1 = (n^3-1)(n^3+1)\)<br>
+\(n^6-1 = (n-1)(n^2+n+1)(n+1)(n^2-n+1)\)<br>
+\(p\) does not divide \((n-1)^6-1 = (n-2)(n^2-n+1)(n)(n^2-3n+3)\)<br>
+\(p\) does not divide \((n-2)^6-1 = (n-3)(n^2-3n+3)(n-1)(n^2-5n+7)\)<br>
+In the first of these case we see that \(p\) divides \((n+1)^6-1 = n(n^2+3n+3)(n+2)(n^2+n+1)\)<br>
+in the second case \(p\) divides \((n+2)^6-1 = (n+1)(\cdots)(n+3)(n^2+3n+3)\)<br>
+We also note that \(4^6-1 = 4095 = 5\times819 = 5\times9\times91 = 13\times3\cdots\) \(4^6-1\) required&rdquo;</div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p><b>Missing 1 &mdash; the sentence between the two &ldquo;does not divide&rdquo; lines
+and the conclusion.</b> After stating that \(p\) divides neither \((n-1)^6 - 1\) nor
+\((n-2)^6 - 1\), the submission jumps straight to &ldquo;In the first of these case&hellip;&rdquo; But
+what <i>these</i> refers to has not yet been established. The official solution has, in between:
+&ldquo;for the least \(n \gt 1\) we must have either \(p \mid (n^2 + n + 1)\) or
+\(p \mid (n + 1)\)&rdquo;. This sentence is the axis of the proof &mdash; it is where the minimality
+of \(n\) narrows four factors down to two, and it is what gives the two &ldquo;cases&rdquo; their
+meaning.</p>
+<p><b>Missing 2 &mdash; the assumption \(n \gt 3\) and the small cases.</b> The argument needs
+\(n - 2 \gt 1\), i.e. \(n \gt 3\), which is nowhere stated, and \(n = 2\), \(n = 3\) are not
+checked. Official finish: \(n = 2\) gives \(63 = 3^2 \times 7\), so \(p = 3, 7\), verified by
+\(3 \mid 4^6 - 1\) and \(7 \mid 3^6 - 1\); \(n = 3\) gives \(728 = 2^3 \times 7 \times 13\),
+so \(p = 2, 13\), verified by \(2 \mid 5^6 - 1\) and \(13 \mid 4^6 - 1\).</p>
+<p>The final line&rsquo;s factorisation of 4095 belongs to exactly that \(n = 3\) check, but with the
+case analysis absent it is left hanging. <b>The four factorisation lines themselves are all
+correct.</b></p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li>\(n^6 - 1 = (n^3)^2 - 1 = (n^3 - 1)(n^3 + 1) = (n-1)(n^2+n+1)(n+1)(n^2-n+1)\).</li><li>\(p \mid n^6 - 1\), so \(p\) divides one of these four factors.</li><li>Since \(n\) is minimal, provided \(n \gt 3\), \(p\) divides neither \((n-1)^6 - 1 = (n-2)(n^2-n+1)\,n\,(n^2-3n+3)\) nor \((n-2)^6 - 1 = (n-3)(n^2-3n+3)(n-1)(n^2-5n+7)\).</li><li><b>These imply that for the least \(n \gt 1\) we must have either \(p \mid (n^2 + n + 1)\) or \(p \mid (n + 1)\).</b></li><li>In the first case \(p \mid (n+1)^6 - 1 = n(n^2+3n+3)(n+2)(n^2+n+1)\); in the second case \(p \mid (n+2)^6 - 1 = (n+1)(n^2+5n+7)(n+3)(n^2+3n+3)\).</li><li>Small cases &mdash; \(n = 2\): \(63 = 3^2 \times 7\), so \(p = 3, 7\); \(3 \mid 4^6 - 1\) and \(7 \mid 3^6 - 1\). \(n = 3\): \(728 = 2^3 \times 7 \times 13\), so \(p = 2, 13\); \(2 \mid 5^6 - 1\) and \(4^6 - 1 = 4095 = 3^2 \times 5 \times 7 \times 13\), so \(13 \mid 4^6 - 1\).</li></ol></details>
+</section>
+<section class="card blank" id="eq6">
+  <div class="chead">
+    <div class="cleft"><span class="qn">6</span> <span class="chip blank">Not attempted</span></div>
+    <span class="qscore">0 / 10</span>
+  </div>
+  <div class="blabel ">Question</div><div class="bbody "><p>Bj&ouml;rk has 64 sugar cubes, all of size \(1\times1\times1\). Each sugar cube
+is either white or demerara or muscovado in flavour. She piles the sugar cubes into a neat
+\(4\times4\times4\) cube.</p>
+<p>Prove that there must be 12 sugar cubes of the same flavour which can be put into 6 disjoint pairs
+so that the distance between the centres of the cubes in each pair is the same.</p></div>
+  <div class="blabel work">Student&rsquo;s work</div><div class="bbody work"><div class="wpart"><span class="wnone">Not submitted.</span></div></div>
+  <div class="fixbox"><div class="fixtitle">Assessment</div><p>Not attempted (the student reported not knowing how to approach Questions 3 and 6).</p>
+<p>From the markers&rsquo; comments: &ldquo;Problem 6 proved hard enough to ensure that almost all
+candidates had something to think about throughout the exam.&rdquo; From the paper&rsquo;s
+instructions (no. 3): &ldquo;One complete solution will gain more credit than several unfinished
+attempts. It is more important to complete a small number of questions than to try all the
+problems.&rdquo;</p></div>
+  <details class="sol"><summary>Official solution (UKMT Markers&rsquo; Report)</summary><ol class="steps"><li>Split the \(4\times4\times4\) cube into <b>eight disjoint</b> \(2\times2\times2\) subcubes.</li><li>Each subcube splits into <b>two sets of four cubes</b> whose centres form the vertices of a regular tetrahedron of edge length \(\sqrt{2}\). By the pigeonhole principle, two of the four vertices of each tetrahedron share a flavour &mdash; giving 16 same-flavour pairs, all at distance \(\sqrt{2}\).</li><li>By the extended pigeonhole principle, one of the three flavours accounts for at least six of these 16 pairs (\(16 \gt 5 \times 3\)). The subcubes are disjoint, so the six pairs are disjoint.</li></ol></details>
+</section></section>
+<section id="kor"><h2 class="lang-h">한글 리포트</h2><div class="stats"><div class="st"><div class="stn">0 / 6</div><div class="stl">정답</div></div><div class="st"><div class="stn">4</div><div class="stl">부분</div></div><div class="st"><div class="stn">0</div><div class="stl">오답</div></div><div class="st"><div class="stn">2</div><div class="stl">미응답</div></div></div>
+<div class="twocol"><div><h2 class="sub">문항별 결과</h2><table class="sum"><tr><th>문항</th><th>영역</th><th>판정</th><th class='num'>득점</th></tr><tr><td><a href="#q1">1</a></td><td>정수론 · 구성과 불가능 증명</td><td class="v-part">부분</td><td class="num">3 / 10</td></tr><tr><td><a href="#q2">2</a></td><td>정수론 · 필요조건과 충분조건</td><td class="v-part">부분</td><td class="num">3 / 10</td></tr><tr><td><a href="#q3">3</a></td><td>게임 이론 · 패리티</td><td class="v-blank">미응답</td><td class="num">0 / 10</td></tr><tr><td><a href="#q4">4</a></td><td>평면기하 · 보조점과 각 추적</td><td class="v-part">부분</td><td class="num">3 / 10</td></tr><tr><td><a href="#q5">5</a></td><td>정수론 · 인수분해와 최소성</td><td class="v-part">부분</td><td class="num">3 / 10</td></tr><tr><td><a href="#q6">6</a></td><td>조합 · 비둘기집</td><td class="v-blank">미응답</td><td class="num">0 / 10</td></tr></table></div><div><h2 class="sub err">고쳐야 할 것</h2><table class="sum err"><tr><th>문항</th><th>고쳐야 할 것</th></tr><tr><td><a href="#q1">1</a></td><td>홀수 n&gt;3 이 happy 가 아닌 <b>증명</b> 없음, n=4 특수 구성 없음</td></tr><tr><td><a href="#q2">2</a></td><td>&ldquo;두 집합의 합이 같다&rdquo; 조건 누락, \(n(n+1)/4\) 유도 없음, 구성·귀납 없음</td></tr><tr><td><a href="#q3">3</a></td><td>미제출</td></tr><tr><td><a href="#q4">4</a></td><td>\(\angle QAB = \angle CPQ = \angle MCP\) 의 근거(평행사변형 \(BQCP\), \(AB=BQ\) 이등변) 없음</td></tr><tr><td><a href="#q5">5</a></td><td>&ldquo;\(p \mid n^2+n+1\) 또는 \(p \mid n+1\)&rdquo; 단계 누락, 작은 \(n\) 예외 없음</td></tr><tr><td><a href="#q6">6</a></td><td>미제출</td></tr></table></div></div>
+<div class="notes"><h3>채점에 앞서 &mdash; 답안과 공식 해답의 대조 결과</h3><ul>
+<li><b>제출된 네 문항의 문장이 UKMT 공식 채점자 리포트의 모범해답과 일치한다.</b>
+1번은 서술 문장 세 개와 원 그림의 숫자까지, 5번은 <i>&ldquo;In the first of these case&rdquo;</i> 라는
+리포트의 비문까지 같다. 4번은 앞 세 줄이 리포트의 해답 구조 안내이고, 그 다음부터가
+실제 해답의 Step 1~4 문장이다.</li>
+<li><b>빠진 자리가 네 문항 모두 같다 &mdash; 점수가 걸린 핵심 단계.</b>
+1번 홀수 불가능 증명과 \(n=4\) 구성, 2번 \(n(n+1)/4\) 정수 조건과 구성,
+4번 각 등식 \(\angle QAB = \angle CPQ = \angle MCP\) 의 근거,
+5번 &ldquo;\(p \mid n^2+n+1\) 또는 \(p \mid n+1\)&rdquo; 한 문장.
+결론과 답은 있고 <b>그 사이를 잇는 논증만 없다.</b></li>
+<li><b>점수는 제출 답안을 UKMT 공식 채점 기준에 대어 매긴 추정이다.</b>
+감점 근거는 문항마다 채점자 리포트 원문을 인용했다.</li>
+<li><b>학부모 전언</b> &mdash; &ldquo;3시간 30분간 시간 재서 풀었고, 6문제 중 3번과 6번은 모르겠다고
+합니다. 4번은 답은 맞았는데 풀이는 맞는지 모르겠다고 합니다. 풀이도 종이에 잘 쓰는 것도 연습을 해야
+할 것 같습니다.&rdquo;</li>
+</ul></div>
+<h2 class="sub">다시 볼 내용</h2><div class="notes"><ul>
+<li><b>&ldquo;어느 것이 성립하는가&rdquo; 문항의 두 축</b> (1번) &mdash; 성립하는 것의 <b>구성</b> 과
+나머지의 <b>불가능 증명</b>. 한 축만 있으면 나머지가 채워지지 않는다.
+&ldquo;내 구성법이 안 통한다&rdquo; 는 불가능의 증명이 아니다.</li>
+<li><b>필요조건과 충분조건</b> (2번) &mdash; &ldquo;\(4k+3\) 이 아니면 안 된다&rdquo; 와
+&ldquo;\(4k+3\) 이면 된다&rdquo; 는 다른 명제다. 뒤쪽은 구성이나 귀납으로 보인다.</li>
+<li><b>기하는 각 추적이 몸통이다</b> (4번) &mdash; &ldquo;이등변이므로&rdquo; 앞에
+<b>어느 각이 어느 각과 왜 같은지</b>가 와야 한다. 사용된 정리는 이름을 밝힌다.</li>
+<li><b>&ldquo;최소&rdquo; 조건을 쓰는 자리</b> (5번) &mdash; 더 작은 값에서 안 된다는 사실로 경우를 좁힌다.
+그 문장이 증명의 축이다.</li>
+<li><b>작은 경우부터 해 본다</b> (3번) &mdash; 채점자 리포트가 이 문항과 1번에 대해 직접 적은 조언이다.
+\(10^6\) 으로 바로 들어가면 막힌다.</li>
+</ul></div>
+
+
+<section class="card part" id="q1">
+  <div class="chead">
+    <div class="cleft"><span class="qn">1</span> <span class="chip part">부분</span> <span class="area">정수론 · 구성과 불가능 증명</span></div>
+    <span class="qscore">3 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>양의 정수 \(n \ge 3\) 이 <b>happy</b> 하다는 것은, 서로 다른 양의 정수 \(n\) 개를
+원형으로 배열해 다음 두 조건을 만족시킬 수 있다는 뜻이다.</p>
+<p>(a) 원 안의 두 정수 \(u\), \(v\) 가 이웃이면 \(u \mid v\) 또는 \(v \mid u\) 이다.</p>
+<p>(b) 서로 다른 \(u\), \(v\) 가 이웃이 아니면 어느 쪽도 다른 쪽을 나누지 않는다.</p>
+<p>\(3 \le n \le 12\) 인 양의 정수 가운데 어느 것이 happy 한지 <b>증명과 함께</b> 결정하라.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart">&ldquo;The case n=3 is unusual because every number is adjacent to every
+other, so Condition b does not need to be considered.<br>
+For even values of n&gt;4 we can show that n is happy by placing distinct primes in alternate spaces and
+placing the products of neighbouring primes between them as in the examples below.&rdquo;
+<div class="wsketch">원 그림 세 개 &mdash; n=3 은 (1, 4, 2), n=6 은 (10, 2, 6, 3, 15, 5),
+n=8 은 (14, 2, 6, 3, 15, 5, 35, 7). n=10, n=12 그림은 없다.</div>
+&ldquo;Thus if n&gt;3 is odd, n is not happy. So the required are 3, 4, 6, 8, 10 and 12.&rdquo;</div></div>
+  <div class="banner part"><b>부분</b> 답 3·4·6·8·10·12 는 정답. 점수가 걸린 두 축 가운데 <b>불가능 증명</b>이 통째로 없다.</div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>답은 맞다.</b> 3 · 4 · 6 · 8 · 10 · 12.</p>
+<p><b>빠진 것 1 &mdash; 홀수 \(n&gt;3\) 이 happy 가 아니라는 증명.</b> 답안에는 결론 문장만 있다.
+공식 해답의 논증은 이렇다. 원 위에 이웃한 세 수를 \(a, b, c\) 라 하자. \(a &lt; b &lt; c\) 이면
+\(a \mid b\), \(b \mid c\) 이므로 \(a \mid c\) 인데, \(a\) 와 \(c\) 는 이웃이 아니므로 조건 (b)에
+어긋난다. \(a &gt; b &gt; c\) 도 같은 이유로 안 된다. 따라서 원 둘레에 부등호를 적으면
+<b>\(&lt;\) 와 \(&gt;\) 가 번갈아 나와야</b> 하는데, <b>홀수 개의 기호는 원에서 번갈아 놓일 수 없다.</b></p>
+<p><b>빠진 것 2 &mdash; \(n=4\) 특수 구성.</b> 답안의 구성법(소수를 한 칸 걸러 놓고 사이에 이웃한 두 소수의
+곱을 넣는다)은 \(n=4\) 에서 안 된다. 소수 \(p_1\), \(p_2\) 만 쓰면 나머지 두 자리가 모두
+\(p_1 p_2\) 가 되어 &ldquo;서로 다른&rdquo; 조건을 어기기 때문이다. 공식 해답은
+\(p_1^2 p_2\) 와 \(p_1 p_2^2\) 로 바꿔 해결한다 &mdash; 예: 2, 12, 3, 18.</p>
+<p><b>채점자 리포트가 이 문항의 감점 사유로 명시한 것</b> (원문):</p>
+<p class="say">&ldquo;Some proved that odds (other than 3) cannot be happy, and commented that the
+remaining numbers are therefore happy, implicitly using the erroneous reasoning that anything not yet
+proven unhappy must be happy. Others gave constructions for the happy numbers &hellip; and then said
+that since this construction doesn&rsquo;t work for the remaining odds that they are therefore not happy.
+This is also erroneous, as other constructions might be possible.&rdquo;</p>
+<p>이 문항은 <b>구성(happy 임을 보임)</b> 과 <b>불가능 증명(happy 가 아님을 보임)</b> 두 축이고,
+한 축만 있으면 나머지는 채워지지 않는다. 답안에는 구성 쪽만, 그것도 \(n=10, 12\) 를 뺀 채로 있다.</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li><b>happy 한 것</b> &mdash; \(n=3\) 은 모든 수가 서로 이웃이라 조건 (b)를 따질 필요가 없다. 예: (1, 4, 2).</li><li><b>짝수 \(n&gt;4\)</b> &mdash; 서로 다른 소수를 한 칸 걸러 놓고, 그 사이에 이웃한 두 소수의 곱을 넣는다. \(n=6\): (10, 2, 6, 3, 15, 5) / \(n=8\): (14, 2, 6, 3, 15, 5, 35, 7) / \(n=10\): (22, 2, 6, 3, 15, 5, 35, 7, 77, 11) / \(n=12\): (26, 2, 6, 3, 15, 5, 35, 7, 77, 11, 143, 13).</li><li><b>\(n=4\)</b> &mdash; 위 구성이 안 되므로 두 합성수에 서로 나누지 않는 수를 곱한다: 2, 12, 3, 18.</li><li><b>happy 가 아닌 것</b> &mdash; 이웃한 세 수 \(a, b, c\) 에서 \(a&lt;b&lt;c\) 면 \(a \mid c\) 가 되어 조건 (b) 위반. 따라서 원 둘레의 부등호가 번갈아 나와야 하는데 홀수 개는 원에서 번갈아 놓을 수 없다. \(\Rightarrow\) 홀수 \(n&gt;3\) 은 happy 가 아니다.</li><li><b>답</b>: 3, 4, 6, 8, 10, 12.</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li>&ldquo;어느 것이 성립하는가&rdquo; 문항은 <b>성립하는 것의 구성</b> + <b>나머지의 불가능 증명</b> 두 축이다</li>
+<li>&ldquo;내 구성법이 안 통한다&rdquo;는 <b>불가능의 증명이 아니다</b> &mdash; 다른 구성이 있을 수 있다.
+\(n=4\) 가 바로 그 반례다</li>
+<li>원형 배열에서 <b>부등호가 번갈아 나오면 개수는 짝수</b> &mdash; 되풀이 쓰이는 논증</li>
+</ul></div>
+</section>
+<section class="card part" id="q2">
+  <div class="chead">
+    <div class="cleft"><span class="qn">2</span> <span class="chip part">부분</span> <span class="area">정수론 · 필요조건과 충분조건</span></div>
+    <span class="qscore">3 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>마술사가 1부터 \(n\) 까지 번호가 붙은 카드 \(n\) 장으로 마술을 한다. 마술사가 카드 순서를
+정해 둔 뒤 관객에게 정수 하나를 칠판에 쓰게 한다. 마술사가 카드를 정해진 순서로 한 장씩 뒤집을 때마다,
+관객은 칠판의 수에 \(-1\) 을 곱하고 카드의 수를 더해 그 결과를 새로 쓰고 옛 수를 지운다.
+마술사는 <b>처음 어떤 정수를 골라도 처음 수와 마지막 수의 합이 0</b> 이 된다고 장담한다.</p>
+<p>이 마술이 가능한 자연수 \(n\) 을 모두 구하라. 주장하는 \(n\) 에서 가능함과, 그 밖의 \(n\) 에서
+불가능함을 <b>둘 다</b> 증명해야 한다.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart">칠판의 수를 차례로 전개했다.
+<div class="wsketch">\(x\) &rarr; \(a_1-x\) &rarr; \(a_2-(a_1-x)=a_2-a_1+x\) &rarr; &hellip; &rarr;
+\(a_n-a_{n-1}+a_{n-2}-\cdots+(-1)^n x\)</div>
+&ldquo;When x is added to this final number the result must be zero. \(a_n+a_{n-2}+a_{n-4}=a_{n-1}+a_{n-3}\cdots\)
+So the trick can be performed if and only if n is odd and it is possible to divide the number into two sets,
+of size \(\frac{n-1}{2}\), \(\frac{n+1}{2}\) respectively.<br>
+For n=7 in the order 1, 3, 4, 5, 7, 6 makes the final &minus;x.<br>
+Thus the trick can be performed for all n = 4k+3&rdquo;</div></div>
+  <div class="banner part"><b>부분</b> 답 \(n=4k+3\) 은 정답. 그 답이 <b>왜</b> 나오는지의 두 단계가 없다.</div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>답은 맞다.</b> \(n = 4k+3\).</p>
+<p><b>빠진 것 1 &mdash; 두 집합의 <u>합이 같아야</u> 한다는 조건.</b> 답안은 &ldquo;크기가
+\(\frac{n-1}{2}\), \(\frac{n+1}{2}\) 인 두 집합으로 나눌 수 있으면&rdquo; 에서 멈춘다.
+크기만으로는 아무 조건도 되지 않는다 &mdash; 어떤 \(n\) 이든 그렇게 나눌 수 있다.
+공식 해답은 <b>each of which has the same sum</b> 을 붙인다. 이 말이 있어야 다음 줄이 성립한다.</p>
+<p><b>빠진 것 2 &mdash; \(4k+3\) 의 유도.</b> 답안에는 결론만 있다. 공식 해답의 두 줄은 이렇다.
+두 집합의 공통 합은 \(\tfrac12(1+2+\cdots+n) = \frac{n(n+1)}{4}\) 이어야 하고,
+\(n\) 이 홀수이므로 이 값이 <b>정수가 되려면 \(n+1\) 이 4의 배수</b> 여야 한다. 곧 \(n = 4k+3\).</p>
+<p><b>빠진 것 3 &mdash; 가능함의 증명(구성).</b> 위까지는 &ldquo;\(4k+3\) 이 아니면 불가능&rdquo; 이라는
+<u>필요조건</u>일 뿐이다. \(4k+3\) 이면 <u>실제로 된다</u>는 것을 따로 보여야 한다.
+공식 해답은 \(n=3\) 에서 1, 3, 2 로 시작해, <b>\(n=m\) 에서 되면 \(m+1, m+2, m+4, m+3\) 네 장을
+그 순서로 덧붙여 \(n=m+4\) 에서도 된다</b>(덧붙인 네 장의 교대합이 0)는 귀납으로 마무리한다.</p>
+<p><b>옮겨 적다 생긴 오류.</b> \(n=7\) 배열이 <b>1, 3, 4, 5, 7, 6</b> 으로 <b>여섯 장</b>이다.
+숫자 2가 빠졌다. 공식 해답은 <b>1, 3, 2, 4, 5, 7, 6</b>(일곱 장)이고, 그대로 계산해야
+\((6-7+5-4)+(2-3+1-x) = -x\) 가 된다. 적힌 대로 계산하면 \(-x\) 가 나오지 않는다.</p>
+<p><b>채점자 리포트가 이 문항의 감점 사유로 명시한 것</b> (원문):</p>
+<p class="say">&ldquo;A common gap was to state that: for odd \(n\), if \(1+2+\cdots+n\) is even
+(or if \(n = 4k+3\)), then the trick can be performed. <b>This step is not obvious and requires
+justification.</b>&rdquo;</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li>처음 수를 \(x\), 뒤집는 순서를 \(a_1, \dots, a_n\) 이라 하면 칠판의 마지막 수는 \(a_n - a_{n-1} + a_{n-2} - \cdots + (-1)^n x\) 다.</li><li>여기에 \(x\) 를 더해 0 이 되어야 하고, \(x\) 는 <b>어떤 정수든 될 수 있으므로</b> \((-1)^n x + x = 0\) 이어야 한다. \(\Rightarrow\) <b>\(n\) 은 홀수.</b></li><li>동시에 \(a_n + a_{n-2} + \cdots = a_{n-1} + a_{n-3} + \cdots\) 여야 한다. 곧 \(1, \dots, n\) 을 크기 \(\frac{n+1}{2}\) 과 \(\frac{n-1}{2}\) 인 두 집합으로 나누되 <b>두 집합의 합이 같아야</b> 한다.</li><li>공통 합 \(= \tfrac12(1+2+\cdots+n) = \frac{n(n+1)}{4}\). \(n\) 이 홀수이므로 이 값이 정수이려면 \(4 \mid n+1\). \(\Rightarrow\) <b>\(n = 4k+3\) 이 아니면 불가능.</b></li><li><b>가능함</b> &mdash; \(n=3\): 1, 3, 2 \(\Rightarrow\) \(2-3+1-x = -x\). \(n=7\): 1, 3, 2, 4, 5, 7, 6. 일반적으로 \(n=m\) 에서 되면 \(m+1, m+2, m+4, m+3\) 을 그 순서로 덧붙여도 마지막 수가 바뀌지 않는다(\((m+3)-(m+4)+(m+2)-(m+1)=0\)). 귀납으로 모든 \(4k+3\) 에서 된다.</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li><b>필요조건과 충분조건은 각각 증명해야 한다.</b> &ldquo;\(4k+3\) 이 아니면 안 된다&rdquo; 를 보인 것은
+절반이다. &ldquo;\(4k+3\) 이면 된다&rdquo; 는 <b>구성</b>으로 보인다</li>
+<li>&ldquo;나눌 수 있다&rdquo; 같은 조건은 <b>무엇이 같아야 하는지</b>까지 적어야 조건이 된다</li>
+<li>\(n \to n+4\) 귀납은 이 유형에서 되풀이 쓰인다 &mdash; 덧붙이는 덩어리의 교대합을 0 으로 만든다</li>
+</ul></div>
+</section>
+<section class="card blank" id="q3">
+  <div class="chead">
+    <div class="cleft"><span class="qn">3</span> <span class="chip blank">미응답</span> <span class="area">게임 이론 · 패리티</span></div>
+    <span class="qscore">0 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>칠판에 처음 \(10^6\) 이 적혀 있다. 현재 수가 \(n\) 일 때 한 수는, 서로 다른 양의 정수
+\(a, b\) 를 \(n = ab\) 가 되게 골라 \(n\) 을 \(|a-b|\) 로 바꾸는 것이다. Rhian 이 먼저 두고 번갈아 둔다.
+둘 수 없는 사람이 진다. 어느 쪽에 필승 전략이 있는지 <b>증명과 함께</b> 결정하라.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart"><span class="wnone">제출하지 않았다.</span></div></div>
+  <div class="banner blank"><b>미응답</b> 미제출. 학부모 전언 &mdash; &ldquo;3번과 6번은 모르겠다고 합니다.&rdquo;</div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>채점자 리포트가 이 문항에 대해 남긴 말</b> (원문):</p>
+<p class="say">&ldquo;Problem 3 (as well as problem 1) provided the annual reminder of the importance of
+trying small examples. Candidates who considered what happens when the game is played starting with 2,
+then 3, then 4 and so on generally spotted the importance of parity and many went on to solve the problem.
+Those who dived in with an initial value of one million often missed the point.&rdquo;</p>
+<p>\(10^6\) 으로 바로 들어가면 경우가 갈려 막힌다. <b>2, 3, 4, 5 부터 직접 두어 보면</b> 패리티가 보인다.</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li>\(10^6\) 은 짝수이므로 <b>Rhian(선수)에게 필승 전략이 있다.</b></li><li>Rhian 은 언제나 <b>홀수를 넘겨 주면</b> 된다. 짝수 \(n\) 을 받았을 때 \(n = n \times 1\) 로 두면 \(|n-1|\) 이 홀수다.</li><li>홀수를 받은 Jack 은 <b>홀수 \(\times\) 홀수</b> 로만 인수분해할 수 있다(홀수는 짝수 약수가 없다). 홀수끼리의 차는 언제나 짝수이므로, Jack 은 늘 짝수를 되돌려 줄 수밖에 없다.</li><li>Rhian 은 계속 홀수를 넘기다가 마침내 <b>1</b> 을 넘긴다. 1 은 서로 다른 두 양의 정수의 곱으로 쓸 수 없으므로 Jack 은 둘 수 없고 진다.</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li><b>작은 경우부터 직접 해 본다.</b> 2, 3, 4, 5 로 두어 보면 패리티가 드러난다.
+큰 수로 바로 들어가면 경우 분석에 빠진다</li>
+<li>게임 문제의 표준 뼈대 &mdash; <b>한쪽만 만들 수 있는 상태</b>를 찾고, 상대가 그 상태를 깰 수 없음을 보인다</li>
+</ul></div>
+</section>
+<section class="card part" id="q4">
+  <div class="chead">
+    <div class="cleft"><span class="qn">4</span> <span class="chip part">부분</span> <span class="area">평면기하 · 보조점과 각 추적</span></div>
+    <span class="qscore">3 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>예각삼각형 \(ABC\) 에서 \(AB &lt; AC &lt; BC\) 이고 \(BC\) 의 중점을 \(M\) 이라 하자.
+선분 \(AM\) 위의 점 \(P\) 가 \(AB = CP\) 이고 \(\angle PAB = \angle BCP\) 를 만족한다.
+\(\angle CPB = 90^\circ\) 임을 증명하라.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart">&ldquo;Step 1: Introduce a new point which helps you use the given conditions<br>
+2: Use the new point and the given conditions to find some equal angles<br>
+3: Conclude that M is the centre of the circumcircle of CPB, \(\angle CPB = 90^\circ\)<br>
+4. Reflect P in the point M to get Q &nbsp; \(\angle QAB = \angle CPQ = \angle MCP\)<br>
+3. Now \(\triangle MCP\) is a isoceles, \(MB = MP = MC\)<br>
+4: This yields that M is the centre of the circle CPB with diameter BC and \(\angle CPB = 90^\circ\)
+since the angle in a semicircle is a right angle.&rdquo;</div></div>
+  <div class="banner part"><b>부분</b> 보조점 \(Q\) 작도부터 결론까지 증명의 뼈대는 다 적었다. 축이 되는 각 등식 \(\angle QAB = \angle CPQ = \angle MCP\) 를 <b>선언만 하고 근거를 적지 않았다.</b></div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>증명의 뼈대는 처음부터 끝까지 있다.</b> 앞 세 줄은 풀이 계획이고,
+&ldquo;Reflect P in the point M to get Q&rdquo; 부터가 실제 증명이다 &mdash;
+\(Q\) 작도(Step 1), 각 등식 \(\angle QAB = \angle CPQ = \angle MCP\) (Step 2의 결론),
+\(\triangle MCP\) 이등변과 \(MB = MP = MC\) (Step 3), 지름 \(BC\) 와 반원의 원주각으로
+마무리(Step 4). 공식 해답과 같은 경로다.</p>
+<p><b>빠진 것 &mdash; 각 등식의 근거.</b> \(\angle QAB = \angle CPQ = \angle MCP\) 는
+이 증명의 축인데, 답안은 이 등식을 <b>선언만 하고 왜 성립하는지를 적지 않았다.</b>
+공식 해답이 이 등식을 얻는 길은 이렇다.</p>
+<p class="say">\(BQCP\) 의 두 대각선이 서로를 이등분하므로 <b>\(BQCP\) 는 평행사변형</b>이다.
+따라서 \(PC = BQ\) 인데 \(PC = AB\) 이므로 \(BQ = AB\), 곧 <b>\(\triangle ABQ\) 가
+이등변</b>이고 \(\angle QAB = \angle BQA\). 또 \(PC \parallel BQ\) 이므로
+\(\angle BQP = \angle CPQ = \angle MCP\).</p>
+<p>이 문단이 없으면 다음 줄의 &ldquo;Now \(\triangle MCP\) is isosceles&rdquo; 가 <b>어디서 나온
+말인지 근거가 없다.</b> 채점은 이 근거에 걸린다 &mdash; 작도와 경로 제시는 인정되고,
+잇는 논증이 없어 점수가 깎인다.</p>
+<p><b>채점자 리포트의 감점 사유</b> (원문) &mdash; 이 문항에서 특히 자주 깎였다.</p>
+<p class="say">&ldquo;Approaches of this nature lost marks where theorems (such as the &lsquo;angle in a
+semicircle&rsquo; theorem) were used implicitly rather than being clearly stated. Similarly, marks were
+deducted when a solution depended on the order of points along a line but failed to justify it.&rdquo;</p>
+<p>답안의 마지막 줄은 &ldquo;since the angle in a semicircle is a right angle&rdquo; 라고 정리를 <b>명시</b>했다.
+이 부분은 리포트가 요구하는 대로 되어 있다.</p>
+<p><b>학생 자기 평가와 겹친다.</b> 학부모 전언 &mdash; &ldquo;4번은 답은 맞았는데 풀이는 맞는지
+모르겠다고 합니다.&rdquo;</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li><b>Step 1</b> &mdash; \(P\) 를 점 \(M\) 에 대해 대칭시켜 \(Q\) 를 잡는다.</li><li><b>Step 2</b> &mdash; \(BQCP\) 의 대각선이 서로를 이등분하므로 평행사변형이다. \(PC = BQ = AB\) 이므로 \(\triangle ABQ\) 는 이등변이고 \(\angle QAB = \angle BQA\). \(PC \parallel BQ\) 에서 \(\angle BQP = \angle CPQ = \angle MCP\).</li><li><b>Step 3</b> &mdash; 따라서 \(\triangle MCP\) 는 이등변이고 \(MB = MP = MC\).</li><li><b>Step 4</b> &mdash; 곧 \(M\) 이 \(BC\) 를 지름으로 하는 원 \(CPB\) 의 중심이므로, 반원에 대한 원주각은 직각이라는 정리로 \(\angle CPB = 90^\circ\) 를 얻는다.</li><li><b>다른 길</b> &mdash; \(\triangle MAB\) 와 \(\triangle PMC\) 에 사인법칙을 쓴다. \(\frac{BM}{\sin\angle MAB} = \frac{AB}{\sin\angle BMA} = \frac{PC}{\sin\angle PMC} = \frac{PM}{\sin\angle MCP}\) (가운데 등식은 \(AB=PC\) 와 \(\angle BMA + \angle PMC = 180^\circ\) 에서). \(\angle MAB = \angle MCP\) 이므로 \(BM = PM\).</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li><b>등식은 선언이 아니라 근거와 함께 적는다.</b> \(\angle QAB = \angle CPQ = \angle MCP\) 는
+평행사변형과 이등변에서 나온다. 결론만 적으면 채점자는 그 사이를 채워 주지 않는다</li>
+<li>보조점 하나가 조건을 쓸 수 있게 만든다. 리포트는 이 문항에서 <b>열 가지 넘는 보조점</b>이 나왔다고 적었다</li>
+<li><b>사용된 정리는 이름을 밝힌다</b> &mdash; &ldquo;angle in a semicircle&rdquo; 처럼.
+암묵적으로 쓰면 깎인다</li>
+</ul></div>
+</section>
+<section class="card part" id="q5">
+  <div class="chead">
+    <div class="cleft"><span class="qn">5</span> <span class="chip part">부분</span> <span class="area">정수론 · 인수분해와 최소성</span></div>
+    <span class="qscore">3 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>\(p\) 를 소수, \(n\) 을 \(n^6-1\) 이 \(p\) 로 나누어떨어지는 <b>1보다 큰 가장 작은</b>
+양의 정수라 하자. \((n+1)^6-1\) 과 \((n+2)^6-1\) 중 적어도 하나가 \(p\) 로 나누어떨어짐을 증명하라.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart">&ldquo;We begin by noting that \(n^6-1 = (n^3)^2-1\)<br>
+\(n^6-1 = (n^3-1)(n^3+1)\)<br>
+\(n^6-1 = (n-1)(n^2+n+1)(n+1)(n^2-n+1)\)<br>
+\(p\) does not divide \((n-1)^6-1 = (n-2)(n^2-n+1)(n)(n^2-3n+3)\)<br>
+\(p\) does not divide \((n-2)^6-1 = (n-3)(n^2-3n+3)(n-1)(n^2-5n+7)\)<br>
+In the first of these case we see that \(p\) divides \((n+1)^6-1 = n(n^2+3n+3)(n+2)(n^2+n+1)\)<br>
+in the second case \(p\) divides \((n+2)^6-1 = (n+1)(\cdots)(n+3)(n^2+3n+3)\)<br>
+We also note that \(4^6-1 = 4095 = 5\times819 = 5\times9\times91 = 13\times3\cdots\) \(4^6-1\) required&rdquo;</div></div>
+  <div class="banner part"><b>부분</b> 인수분해와 두 결론은 있으나, 둘을 잇는 <b>핵심 한 문장</b>과 \(n=2,3\) 예외 처리가 없다.</div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>빠진 것 1 &mdash; 두 &ldquo;does not divide&rdquo; 줄과 결론 사이의 한 문장.</b>
+답안은 &ldquo;\(p\) 가 \((n-1)^6-1\) 을 나누지 않는다&rdquo; 를 적은 다음 바로
+&ldquo;<b>In the first of these case</b>&hellip;&rdquo; 로 넘어간다. 그런데 <b>these 가 무엇을 가리키는지가
+아직 안 나왔다.</b> 공식 해답에는 그 사이에 이 문장이 있다.</p>
+<p class="say">&ldquo;These imply that, while \(p\) divides one of the four factors \((n-1)\),
+\((n^2+n+1)\), \((n+1)\), \((n^2-n+1)\) for any \(n\) where \(p \mid (n^6-1)\),
+<b>for the least \(n&gt;1\) we must have either \(p \mid (n^2+n+1)\) or \(p \mid (n+1)\)</b>.&rdquo;</p>
+<p>이 문장이 <b>증명의 축</b>이다. \(n\) 이 최소라는 조건이 네 인수를 둘로 좁히는 자리이고,
+그래야 다음 두 줄의 &ldquo;첫 번째 경우 / 두 번째 경우&rdquo; 가 뜻을 갖는다.</p>
+<p><b>빠진 것 2 &mdash; \(n&gt;3\) 가정과 작은 \(n\) 예외.</b> 위 논증은 \(n-2 &gt; 1\) 이어야 하므로
+\(n &gt; 3\) 을 가정한 것이다. 답안에 이 가정이 적혀 있지 않고, \(n=2\) 와 \(n=3\) 을 따로 확인하지도
+않았다. 공식 해답은 이렇게 마무리한다 &mdash; \(n=2\) 면 \(n^6-1 = 63 = 3^2 \times 7\) 이므로
+\(p=3, 7\) 이고, \(3 \mid 4^6-1\), \(7 \mid 3^6-1\) 로 확인된다. \(n=3\) 이면
+\(n^6-1 = 728 = 2^3 \times 7 \times 13\) 이므로 \(p=2, 13\) 이고, \(2 \mid 5^6-1\),
+\(13 \mid 4^6-1\) 로 확인된다.</p>
+<p>답안 마지막 줄의 \(4095\) 소인수분해는 <b>바로 이 \(n=3\) 예외 확인의 일부</b>인데,
+앞의 예외 처리가 없어 문장이 어디에 붙는지 알 수 없게 떠 있다.</p>
+<p><b>인수분해 자체는 맞다.</b> 네 줄 모두 정확하다.</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li>\(n^6-1 = (n^3)^2-1 = (n^3-1)(n^3+1) = (n-1)(n^2+n+1)(n+1)(n^2-n+1)\).</li><li>\(p \mid n^6-1\) 이므로 \(p\) 는 이 네 인수 가운데 하나를 나눈다.</li><li>\(n\) 이 최소이므로, \(n&gt;3\) 이면 \(p\) 는 \((n-1)^6-1 = (n-2)(n^2-n+1)n(n^2-3n+3)\) 도, \((n-2)^6-1 = (n-3)(n^2-3n+3)(n-1)(n^2-5n+7)\) 도 나누지 않는다.</li><li><b>이 둘에서 \(p \mid (n^2+n+1)\) 또는 \(p \mid (n+1)\) 로 좁혀진다.</b></li><li>첫째 경우: \(p \mid (n+1)^6-1 = n(n^2+3n+3)(n+2)(n^2+n+1)\). 둘째 경우: \(p \mid (n+2)^6-1 = (n+1)(n^2+5n+7)(n+3)(n^2+3n+3)\).</li><li><b>작은 \(n\)</b> &mdash; \(n=2\): \(63 = 3^2\times7\) 이므로 \(p=3,7\). \(3 \mid 4^6-1\), \(7 \mid 3^6-1\). \(n=3\): \(728 = 2^3\times7\times13\) 이므로 \(p=2,13\). \(2 \mid 5^6-1\), \(4^6-1 = 4095 = 3^2\times5\times7\times13\) 이므로 \(13 \mid 4^6-1\).</li><li><b>합동식으로 쓰는 길</b> &mdash; 네 경우를 각각 본다. \(p \mid n^2+n+1\) 이면 \(n+1 \equiv -n^2\) 이므로 \((n+1)^6-1 \equiv n^{12}-1 = (n^6-1)(n^6+1) \equiv 0\). \(p \mid n+1\) 이면 \((n+2)^6-1 \equiv 1^6-1 = 0\). 나머지 두 경우는 최소성에 걸려 \(n=2\) 또는 \(n=3\) 으로 떨어진다.</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li><b>&ldquo;최소&rdquo; 라는 조건은 쓰는 자리가 정해져 있다</b> &mdash; 더 작은 \(n\) 에서 안 된다는 사실로
+경우를 좁히는 데 쓴다. 이 문항에서는 네 인수를 둘로 줄인다</li>
+<li>\(n^6-1\) 은 <b>제곱의 차 &rarr; 세제곱의 합·차</b> 순서로 네 인수까지 쪼개진다. 되풀이 쓰이는 꼴이다</li>
+<li>\(n&gt;3\) 을 가정하고 논증했으면 <b>\(n=2, 3\) 을 반드시 따로 확인한다</b></li>
+</ul></div>
+</section>
+<section class="card blank" id="q6">
+  <div class="chead">
+    <div class="cleft"><span class="qn">6</span> <span class="chip blank">미응답</span> <span class="area">조합 · 비둘기집</span></div>
+    <span class="qscore">0 / 10점</span>
+  </div>
+  <div class="blabel ">문제</div><div class="bbody "><p>Björk 에게 \(1\times1\times1\) 각설탕 64개가 있다. 각 설탕은 white · demerara ·
+muscovado 셋 중 하나의 맛이다. 이것을 \(4\times4\times4\) 정육면체로 쌓는다.</p>
+<p><b>같은 맛의 각설탕 12개</b>를 골라 <b>서로소인 6쌍</b>으로 묶되, 각 쌍의 두 설탕 중심 사이의 거리가
+모두 같게 할 수 있음을 증명하라.</p></div>
+  
+  
+  <div class="blabel work">학생 답안</div><div class="bbody work"><div class="wpart"><span class="wnone">제출하지 않았다.</span></div></div>
+  <div class="banner blank"><b>미응답</b> 미제출. 학부모 전언 &mdash; &ldquo;3번과 6번은 모르겠다고 합니다.&rdquo;</div><div class="fixbox"><div class="fixtitle">틀린 지점과 올바른 답</div><p><b>채점자 리포트가 이 문항에 대해 남긴 말</b> (원문):</p>
+<p class="say">&ldquo;Problem 6 proved hard enough to ensure that almost all candidates had something to
+think about throughout the exam.&rdquo;</p>
+<p>시험지 지시 3번: &ldquo;One complete solution will gain more credit than several unfinished
+attempts. It is more important to complete a small number of questions than to try all the problems.&rdquo;</p></div>
+  <details class="sol"><summary>공식 해답 (UKMT 채점자 리포트)</summary><ol class="steps"><li>\(4\times4\times4\) 정육면체를 서로 겹치지 않는 \(2\times2\times2\) 부분 정육면체 <b>여덟 개</b>로 나눈다.</li><li>각 부분 정육면체는 중심들이 한 변 \(\sqrt{2}\) 인 정사면체를 이루는 네 칸씩 <b>두 묶음</b>으로 갈라진다. 비둘기집 원리로 각 정사면체의 네 꼭짓점 가운데 두 칸은 같은 맛이다 &mdash; 정사면체 16개에서 거리 \(\sqrt{2}\) 인 같은 맛 쌍이 16쌍 나온다.</li><li>확장 비둘기집 원리로 세 맛 가운데 한 맛이 이 16쌍 중 <b>여섯 쌍 이상</b>을 차지한다 (\(16 \gt 5 \times 3\)). 부분 정육면체들이 서로 겹치지 않으므로 이 여섯 쌍은 서로소다.</li></ol></details>
+  <div class="concept"><div class="ctitle">이 문항이 가르치는 것</div><ul>
+<li>여섯 문항 중 <b>뒤로 갈수록 어렵다</b>. 시험지 지시 4번 &mdash;
+&ldquo;earlier questions tend to be easier &hellip; you are advised to concentrate on these problems first&rdquo;</li>
+<li>완성한 한 문항이 미완성 여러 문항보다 점수가 높다 (지시 3번)</li>
+</ul></div>
+</section></section>
+<footer>정답·모범해답·감점 사유는 UKMT 공식 채점자 리포트(BMO Round 1 2024, Markers&rsquo; Report)를 따랐다.</footer>
+</div>
+</body>
+</html>
